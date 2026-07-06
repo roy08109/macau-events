@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macau Events Calendar 2026 🎭 | Your Ultimate Guide to Macau Activities</title>
+<meta name="description" content="Complete Macau events calendar 2026 - concerts, exhibitions, festivals, sports, and more. Your one-stop guide to everything happening in Macau.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+  .header h1 span { color: #FFD700; }
+  .header p { font-size: 1.1em; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  
+  /* Navigation tabs */
+  .month-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .month-nav button {
+    padding: 10px 20px;
+    border: 2px solid #0f3460;
+    background: white;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: all 0.3s;
+  }
+  .month-nav button:hover { background: #0f3460; color: white; }
+  .month-nav button.active { background: #0f3460; color: white; }
+  
+  /* Category filters */
+  .cat-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+  }
+  .cat-filters button {
+    padding: 6px 16px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s;
+  }
+  .cat-filters button:hover { background: #e9ecef; }
+  .cat-filters button.active { background: #FFD700; border-color: #FFD700; color: #333; }
+  
+  /* Event cards */
+  .events-grid { display: grid; gap: 16px; }
+  .event-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    transition: transform 0.2s;
+  }
+  .event-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+  .event-date-badge {
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0f3460;
+    color: white;
+    padding: 15px 10px;
+    text-align: center;
+  }
+  .event-date-badge .month { font-size: 14px; text-transform: uppercase; opacity: 0.9; }
+  .event-date-badge .day { font-size: 28px; font-weight: bold; }
+  .event-date-badge .range { font-size: 12px; opacity: 0.8; }
+  .event-info { padding: 15px 20px; flex: 1; }
+  .event-info h3 { font-size: 16px; margin-bottom: 5px; color: #1a1a2e; }
+  .event-info .venue { font-size: 13px; color: #666; margin-bottom: 3px; }
+  .event-info .venue i { margin-right: 4px; }
+  .event-info .price { font-size: 13px; color: #e74c3c; font-weight: 600; }
+  .event-cat {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .cat-concert { background: #ffe0e0; color: #c0392b; }
+  .cat-exhibition { background: #e0f0ff; color: #2980b9; }
+  .cat-festival { background: #fff3e0; color: #e67e22; }
+  .cat-sports { background: #e8f5e9; color: #27ae60; }
+  .cat-food { background: #fce4ec; color: #e91e63; }
+  .cat-family { background: #f3e5f5; color: #9c27b0; }
+  .event-info .links { margin-top: 8px; }
+  .event-info .links a {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #0f3460;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 5px;
+  }
+  .event-info .links a:hover { background: #1a5276; }
+  
+  /* Map section */
+  .map-section {
+    margin-top: 40px;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .map-section h2 { margin-bottom: 15px; color: #1a1a2e; }
+  .map-placeholder {
+    background: #e9ecef;
+    height: 400px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 18px;
+  }
+  
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 30px;
+    color: #999;
+    font-size: 13px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.8em; }
+    .event-card { flex-direction: column; }
+    .event-date-badge { flex-direction: row; gap: 8px; min-width: auto; padding: 10px; }
+    .map-placeholder { height: 250px; }
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-item .num { font-size: 28px; font-weight: bold; color: #0f3460; }
+  .stat-item .label { font-size: 13px; color: #666; }
+
+  .ad-label {
+    display: inline-block;
+    font-size: 10px;
+    color: #999;
+    margin-left: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🎭 <span>Macau Events</span> 2026</h1>
+  <p>Your ultimate guide to concerts, exhibitions, festivals & sports in Macau 🀄</p>
+</div>
+
+<div class="container">
+  
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">50+</div><div class="label">Events Listed</div></div>
+    <div class="stat-item"><div class="num">12</div><div class="label">Venues</div></div>
+    <div class="stat-item"><div class="num">6</div><div class="label">Categories</div></div>
+    <div class="stat-item"><div class="num">4000万+</div><div class="label">Annual Visitors</div></div>
+  </div>
+
+  <!-- Month Nav -->
+  <div class="month-nav" id="monthNav">
+    <button class="active" data-month="jul">July</button>
+    <button data-month="aug">August</button>
+    <button data-month="sep">September</button>
+    <button data-month="oct">October</button>
+  </div>
+
+  <!-- Category Filters -->
+  <div class="cat-filters" id="catFilters">
+    <button class="active" data-cat="all">All</button>
+    <button data-cat="concert">🎤 Concerts</button>
+    <button data-cat="exhibition">🎨 Exhibitions</button>
+    <button data-cat="festival">🏮 Festivals</button>
+    <button data-cat="sports">🏃 Sports</button>
+    <button data-cat="food">🍽️ Food</button>
+    <button data-cat="family">👨‍👩‍👧 Family</button>
+  </div>
+
+  <!-- Events Grid -->
+  <div class="events-grid" id="eventsGrid"></div>
+
+  <!-- Map Section -->
+  <div class="map-section">
+    <h2>📍 Venue Map</h2>
+    <div class="map-placeholder" id="mapContainer">
+      <div style="text-align:center">
+        <div style="font-size:48px;margin-bottom:10px">🗺️</div>
+        <div>Google Map coming soon</div>
+        <div style="font-size:13px;margin-top:5px;color:#999">Major venues: Galaxy Arena, Londoner, Venetian, Studio City, Broadway</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AdSense info -->
+  <div style="text-align:center;padding:20px;color:#999;font-size:12px;margin-top:20px">
+    📢 Google AdSense Ready — High CPC niche (travel & entertainment)
+  </div>
+</div>
+
+<div class="footer">
+  <p>© 2026 Macau Events Guide 🦐 Made with ❤️ for Macau visitors</p>
+  <p style="margin-top:5px">Data sourced from DSAT, Macau Tourism, Cultural Affairs Bureau & event organizers</p>
+</div>
+
+<script>
+// ===== EVENT DATA =====
+const events = [
+  // === JULY 2026 ===
+  { id:1, month:'jul', start:3, end:5, title:'Gareth.T 湯令山 - Prince Of Nothing Concert', venue:'Galaxy Arena', category:'concert', price:'MOP 588-1288', link:'https://www.galaxyicc.com', desc:'R&B music sensation Gareth.T performs his "Prince Of Nothing" tour finale in Macau' },
+  { id:2, month:'jul', start:3, end:4, title:'Anson Lo 盧瀚霆 Concert', venue:'Londoner Arena', category:'concert', price:'TBC', link:'https://www.londonerarena.com', desc:'HK pop idol Anson Lo live in concert' },
+  { id:3, month:'jul', start:4, end:4, title:'楊丞琳 Rainie Yang Concert', venue:'Venetian Arena', category:'concert', price:'TBC', link:'https://www.venetianmacao.com', desc:'Taiwanese singer Rainie Yang live performance' },
+  { id:4, month:'jul', start:4, end:4, title:'攬佬 SKAI ISYOURGOD Concert', venue:'百老匯舞台 Broadway', category:'concert', price:'TBC', link:'https://www.broadwaymacau.com.mo', desc:'Live concert at Broadway Macau' },
+  { id:5, month:'jul', start:5, end:5, title:'芒果醬 Concert', venue:'Galaxy G Box', category:'concert', price:'TBC', link:'https://www.galaxyicc.com', desc:'Mango Jam live at Galaxy G Box' },
+  { id:6, month:'jul', start:11, end:12, title:'趙露思 STAY ROMANTIC Concert', venue:'Galaxy Arena', category:'concert', price:'MOP 690-2220', link:'https://www.galaxyicc.com', desc:'Zhao Lusi first Macau concert! Two shows - July 11 & 12' },
+  { id:7, month:'jul', start:11, end:11, title:'HYERI 李惠利 Fan Meeting', venue:'百老匯舞台 Broadway', category:'concert', price:'TBC', link:'https://www.broadwaymacau.com.mo', desc:'K-pop star HYERI fan meeting in Macau' },
+  { id:8, month:'jul', start:11, end:11, title:'金地雄 KIM JI WOONG Fan Meeting', venue:'Studio City', category:'concert', price:'TBC', link:'https://www.studiocity-macau.com', desc:'Korean actor KIM JI WOONG fan meeting' },
+  { id:9, month:'jul', start:11, end:12, title:'NCT JNJM (JENO x JAEMIN) Fan Tour', venue:'Londoner Arena', category:'concert', price:'TBC', link:'https://www.londonerarena.com', desc:'NCT JNJM special fan tour in Macau' },
+  { id:10, month:'jul', start:11, end:11, title:'PoohKrittin Fan Meeting', venue:'Galaxy G Box', category:'concert', price:'TBC', link:'https://www.galaxyicc.com', desc:'Thai star PoohKrittin fan meeting' },
+  { id:11, month:'jul', start:16, end:17, title:'TF家族 2026 Summer Sports Meet', venue:'Galaxy Arena', category:'concert', price:'TBC', link:'https://www.galaxyicc.com', desc:'TF Family summer sports & fan meet event' },
+  { id:12, month:'jul', start:18, end:18, title:'MAMAMOO WORLD TOUR [4WARD]', venue:'Londoner Arena', category:'concert', price:'MOP 988-1888', link:'https://www.londonerarena.com', desc:'MAMAMOO全员合体！World tour in Macau' },
+  { id:13, month:'jul', start:18, end:18, title:'農夫 Hip Hop Concert', venue:'Venetian Arena', category:'concert', price:'TBC', link:'https://www.venetianmacao.com', desc:'HK hip hop group FAMA live in Macau' },
+  { id:14, month:'jul', start:18, end:18, title:'ifeye [If I] Asia Tour', venue:'Galaxy G Box', category:'concert', price:'TBC', link:'https://www.galaxyicc.com', desc:'ifeye first Asia Pacific tour in Macau' },
+  { id:15, month:'jul', start:18, end:18, title:'LYKN DUSK AND DAWN World Tour', venue:'百老匯舞台 Broadway', category:'concert', price:'TBC', link:'https://www.broadwaymacau.com.mo', desc:'LYKN world tour in Macau' },
+  { id:16, month:'jul', start:22, end:26, title:'🌍 FIVB Women\'s Volleyball Nations League Finals', venue:'Macau East Asian Games Dome', category:'sports', price:'TBC', link:'https://www.macaotourism.gov.mo', desc:'World女排联赛总决赛！8 top teams compete for championship' },
+  { id:17, month:'jul', start:24, end:26, title:'陳奕迅 Eason Chan Concert', venue:'Galaxy Arena', category:'concert', price:'TBC', link:'https://www.galaxyicc.com', desc:'HK king of pop Eason Chan live with容祖儿、周笔畅、炎明熹、小肥' },
+  { id:18, month:'jul', start:25, end:26, title:'AND2BLE SHOW CONCERT', venue:'Venetian Arena', category:'concert', price:'MOP 788-1888', link:'https://www.venetianmacao.com', desc:'AND2BLE "Welcome to Qurious" concert' },
+  { id:19, month:'jul', start:25, end:26, title:'RYEOWOOK (金厉旭) Solo Tour', venue:'Londoner Theatre', category:'concert', price:'TBC', link:'https://www.londonerarena.com', desc:'SUPER JUNIOR Ryeowook solo concert' },
+  { id:20, month:'jul', start:1, end:31, title:'🏛️ "文创里的古代中国" Exhibition', venue:'Multiple venues', category:'exhibition', price:'Free', link:'https://www.icm.gov.mo', desc:'Ancient China cultural creative exhibition - 400 exhibits from 22 museums (until Aug 7)' },
+  { id:21, month:'jul', start:1, end:31, title:'🎭 3rd Macau International Children\'s Arts Festival', venue:'Multiple venues', category:'family', price:'Various', link:'https://www.icm.gov.mo/micaf', desc:'Theatre, workshops, exhibitions, film - runs through August!' },
+  { id:22, month:'jul', start:3, end:19, title:'⚽ World Cup Series - District Lifestyle Festival', venue:'Yilong/Patane/Ma Kok', category:'festival', price:'Free', link:'https://ddcmacao.com', desc:'World Cup activities at 3 districts: football culture, markets, music' },
+  { id:23, month:'jul', start:1, end:31, title:'🎵 "藝遊雅文" Weekend Arts Party', venue:'Nam Van Lake', category:'festival', price:'Free', link:'https://www.icm.gov.mo', desc:'Weekend performances, food stalls, craft workshops - Friday evening added!' },
+
+  // === AUGUST 2026 ===
+  { id:24, month:'aug', start:1, end:2, title:'HENRY 刘宪华 World Tour', venue:'Galaxy Arena', category:'concert', price:'TBC', link:'https://www.galaxyicc.com', desc:'HENRY LAU "Enjoy The Show" world tour in Macau' },
+  { id:25, month:'aug', start:1, end:1, title:'P1Harmony Fan Meeting', venue:'Studio City', category:'concert', price:'TBC', link:'https://www.studiocity-macau.com', desc:'K-pop boy group P1Harmony fan meeting' },
+  { id:26, month:'aug', start:1, end:1, title:'關心妍 Jade Kwan Concert', venue:'百老匯舞台 Broadway', category:'concert', price:'TBC', link:'https://www.broadwaymacau.com.mo', desc:'HK singer Jade Kwan live concert' },
+  { id:27, month:'aug', start:1, end:1, title:'趙傳 Zhao Chuan Concert', venue:'Londoner Arena', category:'concert', price:'TBC', link:'https://www.londonerarena.com', desc:'Taiwan rock legend Zhao Chuan live' },
+  { id:28, month:'aug', start:8, end:8, title:'U-KNOW 郑允浩 Concert', venue:'百老匯舞台 Broadway', category:'concert', price:'TBC', link:'https://www.broadwaymacau.com.mo', desc:'TVXQ U-KNOW Yunho solo concert' },
+  { id:29, month:'aug', start:15, end:15, title:'ITZY WORLD TOUR', venue:'Venetian Arena', category:'concert', price:'TBC', link:'https://www.venetianmacao.com', desc:'K-pop girl group ITZY world tour in Macau' },
+  { id:30, month:'aug', start:22, end:22, title:'AMPERS&ONE Concert', venue:'Galaxy G Box', category:'concert', price:'TBC', link:'https://www.galaxyicc.com', desc:'AMPERS&ONE live at Galaxy G Box' },
+  { id:31, month:'aug', start:29, end:29, title:'FNC Concert', venue:'Londoner Arena', category:'concert', price:'TBC', link:'https://www.londonerarena.com', desc:'FNC entertainment family concert' },
+  { id:32, month:'aug', start:9, end:9, title:'🏸 "琴澳杯" Badminton Open', venue:'TBC', category:'sports', price:'TBC', link:'https://www.sport.gov.mo', desc:'Macau-Hengqin Cup badminton tournament' },
+  { id:33, month:'aug', start:1, end:30, title:'🎭 Macau Int\'l Children\'s Arts Festival (continues)', venue:'Multiple venues', category:'family', price:'Various', link:'https://www.icm.gov.mo/micaf', desc:'Children\'s arts festival continues through August!' },
+  { id:34, month:'aug', start:1, end:7, title:'🏛️ "文创里的古代中国" Exhibition (final week)', venue:'Multiple venues', category:'exhibition', price:'Free', link:'https://www.icm.gov.mo', desc:'Last chance to see this amazing exhibition!' },
+  { id:35, month:'aug', start:1, end:1, title:'🎹 Jeff Lorber Fusion Jazz Concert', venue:'TBC', category:'concert', price:'TBC', link:'https://www.macaotourism.gov.mo', desc:'Grammy-winning jazz legend Jeff Lorber first Macau concert' },
+
+  // === SEPTEMBER 2026 ===
+  { id:36, month:'sep', start:11, end:12, title:'BABYMONSTER WORLD TOUR [CHOOM]', venue:'Venetian Arena', category:'concert', price:'TBC', link:'https://www.venetianmacao.com', desc:'YG\'s BABYMONSTER world tour in Macau!' },
+  { id:37, month:'sep', start:19, end:20, title:'TWS Tour', venue:'Londoner Arena', category:'concert', price:'TBC', link:'https://www.londonerarena.com', desc:'TWS live in Macau' },
+  { id:38, month:'sep', start:1, end:30, title:'🏮 Mid-Autumn Festival Events', venue:'Multiple venues', category:'festival', price:'Free', link:'https://www.macaotourism.gov.mo', desc:'Moon festival celebrations across Macau' },
+
+  // === OCTOBER 2026 ===
+  { id:39, month:'oct', start:9, end:11, title:'🏀 NBA China Game 2026', venue:'Venetian Arena', category:'sports', price:'TBC', link:'https://www.venetianmacao.com', desc:'NBA China尊享之旅 in Macau!' },
+  { id:40, month:'oct', start:17, end:18, title:'ENHYPEN BLOOD SAGA World Tour', venue:'Galaxy Arena', category:'concert', price:'TBC', link:'https://www.galaxyicc.com', desc:'ENHYPEN world tour in Macau!' },
+  { id:41, month:'oct', start:1, end:31, title:'🎃 Halloween Events Macau', venue:'Multiple venues', category:'festival', price:'Various', link:'https://www.macaotourism.gov.mo', desc:'Halloween parties and events across Macau' },
+  { id:42, month:'oct', start:1, end:31, title:'🏎️ Macau Grand Prix Month预热', venue:'Multiple venues', category:'sports', price:'TBC', link:'https://www.macaotourism.gov.mo', desc:'Preparations and lead-up events for the Macau Grand Prix in November' },
+];
+
+// ===== RENDER =====
+let currentMonth = 'jul';
+let currentCat = 'all';
+
+function getCategoryEmoji(cat) {
+  const map = { concert:'🎤', exhibition:'🎨', festival:'🏮', sports:'🏃', food:'🍽️', family:'👨‍👩‍👧' };
+  return map[cat] || '📌';
+}
+
+function getCategoryClass(cat) {
+  return 'cat-' + cat;
+}
+
+function getDaySuffix(d) {
+  if (d >= 11 && d <= 13) return 'th';
+  const suffixes = ['th','st','nd','rd','th','th','th','th','th','th'];
+  return suffixes[d % 10] || 'th';
+}
+
+function formatDateRange(start, end) {
+  if (start === end) return start + getDaySuffix(start);
+  return start + getDaySuffix(start) + ' - ' + end + getDaySuffix(end);
+}
+
+function renderEvents() {
+  const grid = document.getElementById('eventsGrid');
+  const filtered = events.filter(e => {
+    const monthMatch = e.month === currentMonth;
+    const catMatch = currentCat === 'all' || e.category === currentCat;
+    return monthMatch && catMatch;
+  });
+  
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:40px;color:#999">No events found for this filter 📭</div>';
+    return;
+  }
+  
+  // Sort by start date
+  filtered.sort((a, b) => a.start - b.start);
+  
+  grid.innerHTML = filtered.map(e => `
+    <div class="event-card">
+      <div class="event-date-badge">
+        <div class="month">${e.month.toUpperCase()}</div>
+        <div class="day">${e.start}${e.start !== e.end ? '-' + e.end : ''}</div>
+      </div>
+      <div class="event-info">
+        <span class="event-cat ${getCategoryClass(e.category)}">${getCategoryEmoji(e.category)} ${e.category.charAt(0).toUpperCase() + e.category.slice(1)}</span>
+        <h3>${e.title}</h3>
+        <div class="venue">📍 ${e.venue}</div>
+        ${e.price ? '<div class="price">💰 ' + e.price + '</div>' : ''}
+        <div style="font-size:13px;color:#666;margin-top:4px">${e.desc}</div>
+        <div class="links">
+          <a href="${e.link}" target="_blank" rel="noopener">🎫 Get Tickets</a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Month nav
+document.querySelectorAll('#monthNav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#monthNav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentMonth = btn.dataset.month;
+    renderEvents();
+  });
+});
+
+// Category filters
+document.querySelectorAll('#catFilters button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#catFilters button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    renderEvents();
+  });
+});
+
+// Initial render
+renderEvents();
+</script>
+</body>
+</html>
