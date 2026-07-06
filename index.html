@@ -238,7 +238,7 @@ function showEvent(id) {
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
   document.getElementById('page-detail').style.display = 'block';
   const d = document.getElementById('detail-content');
-  d.innerHTML = \`
+  d.innerHTML = `
     <button onclick="showPage('page-home')" style="background:none;border:none;color:#0f3460;font-size:16px;cursor:pointer;margin-bottom:15px">← \${curLang==='en'?'Back':curLang==='tc'?'返回':'返回'}</button>
     <div class="event-card" style="flex-direction:column;cursor:default">
       <img src="\${e.img}" alt="\${e.t}" style="width:100%;height:300px;object-fit:cover;background:#e9ecef" onerror="this.outerHTML='<div style=width:100%;height:300px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:80px>🎭</div>'">
@@ -251,18 +251,18 @@ function showEvent(id) {
         <div style="font-size:15px;color:#444;margin:15px 0;line-height:1.8">\${t.d[e.di]}</div>
         <div style="margin-top:15px"><a href="\${e.l}" target="_blank" rel="noopener" style="display:inline-block;padding:12px 30px;background:#0f3460;color:white;text-decoration:none;border-radius:8px;font-size:16px">\${t.gT}</a></div>
       </div>
-    </div>\`;
+    </div>`;
 }
 
 // ===== NAVIGATION =====
 function initNav() {
   const nav = document.createElement('div');
   nav.style.cssText = 'background:#0d1b3e;padding:8px 20px;text-align:center';
-  nav.innerHTML = \`
+  nav.innerHTML = `
     <a href="#home" onclick="showPage('page-home')" style="color:rgba(255,255,255,0.8);text-decoration:none;margin:0 12px;font-size:14px">🏠 \${curLang==='en'?'Home':curLang==='tc'?'首頁':'首页'}</a>
     <a href="#venues" onclick="showPage('page-venues')" style="color:rgba(255,255,255,0.8);text-decoration:none;margin:0 12px;font-size:14px">📍 \${curLang==='en'?'Venues':curLang==='tc'?'場館':'场馆'}</a>
     <a href="#about" onclick="showPage('page-about')" style="color:rgba(255,255,255,0.8);text-decoration:none;margin:0 12px;font-size:14px">ℹ️ \${curLang==='en'?'About':curLang==='tc'?'關於':'关于'}</a>
-  \`;
+  `;
   document.querySelector('.lang-bar').after(nav);
 }
 
@@ -272,12 +272,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Wrap home content
   const container = document.querySelector('.container');
   const homeContent = container.innerHTML;
-  container.innerHTML = \`
+  container.innerHTML = `
     <div id="page-home" class="page">\${homeContent}</div>
     <div id="page-detail" class="page" style="display:none"><div id="detail-content"></div></div>
     <div id="page-venues" class="page" style="display:none"></div>
     <div id="page-about" class="page" style="display:none"></div>
-  \`;
+  `;
   render();
   initVenues();
   initAbout();
@@ -293,10 +293,10 @@ function initVenues() {
     {name:'Broadway Macau',cap:'3,000 seats',loc:'Broadway Macau, Cotai',img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80',desc:'Intimate theatre-style venue for concerts and performances.'},
     {name:'East Asian Games Dome',cap:'15,000 seats',loc:'Taipa, Macau',img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80',desc:'Multi-purpose indoor arena, host of the FIVB Volleyball Nations League Finals.'}
   ];
-  v.innerHTML = \`
+  v.innerHTML = `
     <button onclick="showPage('page-home')" style="background:none;border:none;color:#0f3460;font-size:16px;cursor:pointer;margin-bottom:15px">← \${curLang==='en'?'Back':curLang==='tc'?'返回':'返回'}</button>
     <h2 style="color:#1a1a2e;margin-bottom:20px">📍 \${curLang==='en'?'Major Venues':curLang==='tc'?'主要場館':'主要场馆'}</h2>
-    <div style="display:grid;gap:20px">\${venuesList.map(v => \`
+    <div style="display:grid;gap:20px">\${venuesList.map(v => `
       <div style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;flex-wrap:wrap">
         <img src="\${v.img}" alt="\${v.name}" style="width:100%;max-width:300px;height:200px;object-fit:cover;flex:1;min-width:250px">
         <div style="padding:20px;flex:2">
@@ -305,13 +305,13 @@ function initVenues() {
           <p style="color:#666;margin:5px 0">📍 \${v.loc}</p>
           <p style="color:#444;margin:10px 0;line-height:1.6">\${v.desc}</p>
         </div>
-      </div>\`).join('')}</div>
-  \`;
+      </div>`).join('')}</div>
+  `;
 }
 
 function initAbout() {
   const a = document.getElementById('page-about');
-  a.innerHTML = \`
+  a.innerHTML = `
     <button onclick="showPage('page-home')" style="background:none;border:none;color:#0f3460;font-size:16px;cursor:pointer;margin-bottom:15px">← \${curLang==='en'?'Back':curLang==='tc'?'返回':'返回'}</button>
     <div style="background:white;border-radius:12px;padding:30px;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
       <h2 style="color:#1a1a2e;margin-bottom:20px">\${curLang==='en'?'About Macau Events Guide':curLang==='tc'?'關於澳門活動指南':'关于澳门活动指南'}</h2>
@@ -322,7 +322,7 @@ function initAbout() {
         <p style="color:#666;font-size:14px">\${curLang==='en'?'Google AdSense ready. High CPC travel niche. Contact us for advertising opportunities.':curLang==='tc'?'支援 Google AdSense，高價值旅遊廣告類別。歡迎聯絡廣告合作。':'支持 Google AdSense，高价值旅游广告类别。欢迎联络广告合作。'}</p>
       </div>
     </div>
-  \`;
+  `;
 }
 
 render();
