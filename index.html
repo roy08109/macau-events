@@ -102,6 +102,10 @@
   </div>
   <div style="text-align:center;padding:20px;color:#999;font-size:12px;margin-top:20px">📢 Google AdSense Ready · High CPC Travel Niche</div>
 </div>
+
+<div id="modal-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center;padding:20px" onclick="if(event.target===this)closeModal()">
+  <div id="modal-content" style="background:white;border-radius:12px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;padding:25px;box-shadow:0 10px 40px rgba(0,0,0,0.3)"></div>
+</div>
 <div class="footer"><p>© 2026 Macau Events Guide 🦐</p></div>
 
 <script>
@@ -166,6 +170,9 @@ a?w=400&q=80'},
 
 let curLang = 'en', curMonth = 'jul', curCat = 'all';
 
+
+let curLang = 'en', curMonth = 'jul', curCat = 'all';
+
 function switchLang(l) {
   curLang = l;
   const t = LANG[l];
@@ -187,145 +194,90 @@ function switchLang(l) {
   document.getElementById('cFamily').textContent = t.cFa;
   document.getElementById('vTitle').textContent = t.vT;
   document.getElementById('featuredBanner').textContent = t.banner;
-  document.querySelectorAll('.lang-bar button').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.lang-bar button[onclick*="'${l}'"]`).classList.add('active');
+  document.querySelectorAll('.lang-bar button').forEach(function(b) { b.classList.remove('active'); });
+  if (l === 'en') document.querySelector('.lang-bar button:nth-child(1)').classList.add('active');
+  else if (l === 'tc') document.querySelector('.lang-bar button:nth-child(2)').classList.add('active');
+  else document.querySelector('.lang-bar button:nth-child(3)').classList.add('active');
   render();
 }
 
-function getCatEmoji(c) { return {concert:'🎤',exhibition:'🎨',festival:'🏮',sports:'🏃',food:'🍽️',family:'👨‍👩‍👧'}[c]||'📌'; }
-function getCatClass(c) { return 'cat-'+c; }
+function getCatEmoji(c) { var m = {concert:"🎤",exhibition:"🎨",festival:"🏮",sports:"🏃",food:"🍽️",family:"👨‍👩‍👧"}; return m[c] || "📌"; }
+function getCatClass(c) { return "cat-" + c; }
 
 function render() {
-  const g = document.getElementById('eventsGrid');
-  const t = LANG[curLang];
-  const f = events.filter(e => e.m === curMonth && (curCat === 'all' || e.c === curCat)).sort((a,b) => a.s - b.s);
-  if (!f.length) { g.innerHTML = `<div style="text-align:center;padding:40px;color:#999">${t.nE}</div>`; return; }
-  g.innerHTML = f.map(e => `
-    <div class="event-card" onclick="showEvent(${e.id})" style="cursor:pointer">
-      <img class="event-img" src="${e.img}" alt="${e.t}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=event-img-placeholder>🎭</div>'+this.parentNode.innerHTML.substring(this.outerHTML.length)">
-      <div class="event-body">
-        <div class="event-date">${e.m.toUpperCase()} ${e.s}${e.s!==e.e?' - '+e.e:''}</div>
-        <span class="event-cat ${getCatClass(e.c)}">${getCatEmoji(e.c)} ${e.c.charAt(0).toUpperCase()+e.c.slice(1)}</span>
-        <h3>${e.t}</h3>
-        <div class="venue">📍 ${e.v}</div>
-        ${e.p ? '<div class="price">💰 '+e.p+'</div>' : ''}
-        <div class="event-desc">${t.d[e.di]}</div>
-        <div class="event-links"><a href="${e.l}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${t.gT}</a></div>
-      </div>
-    </div>`).join('');
-}
-
-document.querySelectorAll('#monthNav button').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('#monthNav button').forEach(x => x.classList.remove('active'));
-  b.classList.add('active'); curMonth = b.dataset.month; render();
-}));
-document.querySelectorAll('#catFilters button').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('#catFilters button').forEach(x => x.classList.remove('active'));
-  b.classList.add('active'); curCat = b.dataset.cat; render();
-}));
-
-// ===== ROUTING =====
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-  document.getElementById(page).style.display = 'block';
-  window.scrollTo(0, 0);
+  var g = document.getElementById('eventsGrid');
+  var t = LANG[curLang];
+  var f = events.filter(function(e) { return e.m === curMonth && (curCat === "all" || e.c === curCat); });
+  f.sort(function(a,b) { return a.s - b.s; });
+  if (f.length === 0) { g.innerHTML = "<div style=\"text-align:center;padding:40px;color:#999\">" + t.nE + "</div>"; return; }
+  var html = "";
+  for (var i = 0; i < f.length; i++) {
+    var e = f[i];
+    var dateStr = e.m.toUpperCase() + " " + e.s + (e.s !== e.e ? " - " + e.e : "");
+    var priceHtml = e.p ? "<div class=\"price\">💰 " + e.p + "</div>" : "";
+    html += "<div class=\"event-card\" onclick=\"showEvent(" + e.id + ")\">";
+    html += "<img class=\"event-img\" src=\"" + e.img + "\" alt=\"" + e.t + "\" loading=\"lazy\" onerror=\"this.outerHTML='<div class=event-img-placeholder>🎭</div>'\">";
+    html += "<div class=\"event-body\">";
+    html += "<div class=\"event-date\">" + dateStr + "</div>";
+    html += "<span class=\"event-cat " + getCatClass(e.c) + "\">" + getCatEmoji(e.c) + " " + e.c.charAt(0).toUpperCase() + e.c.slice(1) + "</span>";
+    html += "<h3>" + e.t + "</h3>";
+    html += "<div class=\"venue\">📍 " + e.v + "</div>";
+    html += priceHtml;
+    html += "<div class=\"event-desc\">" + t.d[e.di] + "</div>";
+    html += "<div class=\"event-links\"><a href=\"" + e.l + "\" target=\"_blank\" rel=\"noopener\" onclick=\"event.stopPropagation()\">" + t.gT + "</a></div>";
+    html += "</div></div>";
+  }
+  g.innerHTML = html;
 }
 
 function showEvent(id) {
-  const e = events.find(x => x.id === id);
+  var e = events.filter(function(x) { return x.id === id; })[0];
   if (!e) return;
-  const t = LANG[curLang];
-  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-  document.getElementById('page-detail').style.display = 'block';
-  const d = document.getElementById('detail-content');
-  d.innerHTML = `
-    <button onclick="showPage('page-home')" style="background:none;border:none;color:#0f3460;font-size:16px;cursor:pointer;margin-bottom:15px">← \${curLang==='en'?'Back':curLang==='tc'?'返回':'返回'}</button>
-    <div class="event-card" style="flex-direction:column;cursor:default">
-      <img src="\${e.img}" alt="\${e.t}" style="width:100%;height:300px;object-fit:cover;background:#e9ecef" onerror="this.outerHTML='<div style=width:100%;height:300px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:80px>🎭</div>'">
-      <div class="event-body">
-        <span class="event-cat \${getCatClass(e.c)}">\${getCatEmoji(e.c)} \${e.c.charAt(0).toUpperCase()+e.c.slice(1)}</span>
-        <h2 style="font-size:22px;margin:10px 0">\${e.t}</h2>
-        <div style="font-size:16px;color:#0f3460;font-weight:600;margin:5px 0">📅 \${e.m.toUpperCase()} \${e.s}\${e.s!==e.e?' - '+e.e:''}</div>
-        <div style="font-size:15px;color:#666;margin:5px 0">📍 \${e.v}</div>
-        \${e.p ? '<div style="font-size:16px;color:#e74c3c;font-weight:600;margin:5px 0">💰 '+e.p+'</div>' : ''}
-        <div style="font-size:15px;color:#444;margin:15px 0;line-height:1.8">\${t.d[e.di]}</div>
-        <div style="margin-top:15px"><a href="\${e.l}" target="_blank" rel="noopener" style="display:inline-block;padding:12px 30px;background:#0f3460;color:white;text-decoration:none;border-radius:8px;font-size:16px">\${t.gT}</a></div>
-      </div>
-    </div>`;
+  var t = LANG[curLang];
+  var overlay = document.getElementById('modal-overlay');
+  var content = document.getElementById('modal-content');
+  var dateStr = e.m.toUpperCase() + " " + e.s + (e.s !== e.e ? " - " + e.e : "");
+  var priceHtml = e.p ? "<div style=\"font-size:18px;color:#e74c3c;font-weight:600;margin:10px 0\">💰 " + e.p + "</div>" : "";
+  content.innerHTML = "<button onclick=\"closeModal()\" style=\"float:right;background:none;border:none;font-size:28px;cursor:pointer;color:#999\">✕</button>";
+  content.innerHTML += "<img src=\"" + e.img + "\" alt=\"" + e.t + "\" style=\"width:100%;height:250px;object-fit:cover;border-radius:8px;background:#e9ecef\" onerror=\"this.outerHTML='<div style=width:100%;height:250px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:64px>🎭</div>'\">";
+  content.innerHTML += "<span class=\"event-cat " + getCatClass(e.c) + "\" style=\"margin-top:15px\">" + getCatEmoji(e.c) + " " + e.c.charAt(0).toUpperCase() + e.c.slice(1) + "</span>";
+  content.innerHTML += "<h2 style=\"font-size:22px;margin:10px 0;color:#1a1a2e\">" + e.t + "</h2>";
+  content.innerHTML += "<div style=\"font-size:16px;color:#0f3460;font-weight:600;margin:5px 0\">📅 " + dateStr + "</div>";
+  content.innerHTML += "<div style=\"font-size:15px;color:#666;margin:5px 0\">📍 " + e.v + "</div>";
+  content.innerHTML += priceHtml;
+  content.innerHTML += "<div style=\"font-size:15px;color:#444;margin:15px 0;line-height:1.8\">" + t.d[e.di] + "</div>";
+  content.innerHTML += "<a href=\"" + e.l + "\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;padding:12px 30px;background:#0f3460;color:white;text-decoration:none;border-radius:8px;font-size:16px\">" + t.gT + "</a>";
+  overlay.style.display = "flex";
 }
 
-// ===== NAVIGATION =====
-function initNav() {
-  const nav = document.createElement('div');
-  nav.style.cssText = 'background:#0d1b3e;padding:8px 20px;text-align:center';
-  nav.innerHTML = `
-    <a href="#home" onclick="showPage('page-home')" style="color:rgba(255,255,255,0.8);text-decoration:none;margin:0 12px;font-size:14px">🏠 \${curLang==='en'?'Home':curLang==='tc'?'首頁':'首页'}</a>
-    <a href="#venues" onclick="showPage('page-venues')" style="color:rgba(255,255,255,0.8);text-decoration:none;margin:0 12px;font-size:14px">📍 \${curLang==='en'?'Venues':curLang==='tc'?'場館':'场馆'}</a>
-    <a href="#about" onclick="showPage('page-about')" style="color:rgba(255,255,255,0.8);text-decoration:none;margin:0 12px;font-size:14px">ℹ️ \${curLang==='en'?'About':curLang==='tc'?'關於':'关于'}</a>
-  `;
-  document.querySelector('.lang-bar').after(nav);
+function closeModal() {
+  document.getElementById('modal-overlay').style.display = "none";
 }
 
-// Wrap venue section and add pages
-document.addEventListener('DOMContentLoaded', () => {
-  initNav();
-  // Wrap home content
-  const container = document.querySelector('.container');
-  const homeContent = container.innerHTML;
-  container.innerHTML = `
-    <div id="page-home" class="page">\${homeContent}</div>
-    <div id="page-detail" class="page" style="display:none"><div id="detail-content"></div></div>
-    <div id="page-venues" class="page" style="display:none"></div>
-    <div id="page-about" class="page" style="display:none"></div>
-  `;
+// Event listeners using delegation
+document.getElementById('monthNav').addEventListener('click', function(e) {
+  var btn = e.target.closest ? e.target.closest('button') : null;
+  if (!btn) return;
+  var buttons = document.querySelectorAll('#monthNav button');
+  for (var i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
+  btn.classList.add('active');
+  curMonth = btn.getAttribute('data-month');
   render();
-  initVenues();
-  initAbout();
 });
 
-function initVenues() {
-  const v = document.getElementById('page-venues');
-  const venuesList = [
-    {name:'Galaxy Arena',cap:'16,000 seats',loc:'Galaxy Macau, Cotai',img:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',desc:'Macau's largest indoor arena. Hosts major concerts, sports events, and entertainment shows.'},
-    {name:'Londoner Arena',cap:'12,000 seats',loc:'The Londoner Macau, Cotai',img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80',desc:'State-of-the-art venue at The Londoner Macau, featuring world-class acoustics.'},
-    {name:'Venetian Arena',cap:'15,000 seats',loc:'The Venetian Macau, Cotai',img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80',desc:'One of Asia's largest indoor arenas, hosting international artists and sporting events.'},
-    {name:'Studio City',cap:'5,000 seats',loc:'Studio City Macau, Cotai',img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=800&q=80',desc:'Modern entertainment venue at Studio City complex.'},
-    {name:'Broadway Macau',cap:'3,000 seats',loc:'Broadway Macau, Cotai',img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80',desc:'Intimate theatre-style venue for concerts and performances.'},
-    {name:'East Asian Games Dome',cap:'15,000 seats',loc:'Taipa, Macau',img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80',desc:'Multi-purpose indoor arena, host of the FIVB Volleyball Nations League Finals.'}
-  ];
-  v.innerHTML = `
-    <button onclick="showPage('page-home')" style="background:none;border:none;color:#0f3460;font-size:16px;cursor:pointer;margin-bottom:15px">← \${curLang==='en'?'Back':curLang==='tc'?'返回':'返回'}</button>
-    <h2 style="color:#1a1a2e;margin-bottom:20px">📍 \${curLang==='en'?'Major Venues':curLang==='tc'?'主要場館':'主要场馆'}</h2>
-    <div style="display:grid;gap:20px">\${venuesList.map(v => `
-      <div style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;flex-wrap:wrap">
-        <img src="\${v.img}" alt="\${v.name}" style="width:100%;max-width:300px;height:200px;object-fit:cover;flex:1;min-width:250px">
-        <div style="padding:20px;flex:2">
-          <h3 style="font-size:18px;color:#1a1a2e">\${v.name}</h3>
-          <p style="color:#666;margin:5px 0">👥 \${v.cap}</p>
-          <p style="color:#666;margin:5px 0">📍 \${v.loc}</p>
-          <p style="color:#444;margin:10px 0;line-height:1.6">\${v.desc}</p>
-        </div>
-      </div>`).join('')}</div>
-  `;
-}
+document.getElementById('catFilters').addEventListener('click', function(e) {
+  var btn = e.target.closest ? e.target.closest('button') : null;
+  if (!btn) return;
+  var buttons = document.querySelectorAll('#catFilters button');
+  for (var i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
+  btn.classList.add('active');
+  curCat = btn.getAttribute('data-cat');
+  render();
+});
 
-function initAbout() {
-  const a = document.getElementById('page-about');
-  a.innerHTML = `
-    <button onclick="showPage('page-home')" style="background:none;border:none;color:#0f3460;font-size:16px;cursor:pointer;margin-bottom:15px">← \${curLang==='en'?'Back':curLang==='tc'?'返回':'返回'}</button>
-    <div style="background:white;border-radius:12px;padding:30px;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
-      <h2 style="color:#1a1a2e;margin-bottom:20px">\${curLang==='en'?'About Macau Events Guide':curLang==='tc'?'關於澳門活動指南':'关于澳门活动指南'}</h2>
-      <p style="line-height:1.8;color:#444;margin-bottom:15px">\${curLang==='en'?'Your one-stop destination for all events happening in Macau. We curate concerts, exhibitions, festivals, sports events, and family activities to help you plan your visit.':curLang==='tc'?'一站式澳門活動資訊平台，為你搜羅演唱會、展覽、節慶、體育賽事及親子活動，助你規劃澳門之旅。':'一站式澳门活动资讯平台，为你搜罗演唱会、展览、节庆、体育赛事及亲子活动，助你规划澳门之旅。'}</p>
-      <p style="line-height:1.8;color:#444;margin-bottom:15px">\${curLang==='en'?'Data sourced from Macau Government Tourism Office, Cultural Affairs Bureau, DSAT, and event organizers.':curLang==='tc'?'資料來源：澳門旅遊局、文化局、交通事務局及活動主辦方。':'资料来源：澳门旅游局、文化局、交通事务局及活动主办方。'}</p>
-      <div style="margin-top:20px;padding:20px;background:#f8f9fa;border-radius:8px">
-        <h3 style="margin-bottom:10px">📢 \${curLang==='en'?'Advertise With Us':curLang==='tc'?'廣告合作':'广告合作'}</h3>
-        <p style="color:#666;font-size:14px">\${curLang==='en'?'Google AdSense ready. High CPC travel niche. Contact us for advertising opportunities.':curLang==='tc'?'支援 Google AdSense，高價值旅遊廣告類別。歡迎聯絡廣告合作。':'支持 Google AdSense，高价值旅游广告类别。欢迎联络广告合作。'}</p>
-      </div>
-    </div>
-  `;
-}
+// Close modal on overlay click
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
 
 render();
-</script>
-</body>
-</html>
