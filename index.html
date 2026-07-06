@@ -83,70 +83,90 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<div class="footer"><p>© 2026 Macau Events Guide</p></div>
+<div class="footer"><p>© 2026 Macau Events Guide | Data from Galaxy Macau, Broadway Macau</p></div>
 
 <script>
-// ===== DATA =====
 var MONTHS = ["July","August","September","October"];
 var MONTHS_TC = ["7月","8月","9月","10月"];
 var MONTHS_SC = ["7月","8月","9月","10月"];
-var CATS = ["All","🎤 Concerts","🎨 Exhibitions","🏮 Festivals","🏃 Sports","👨‍👩👧 Family"];
-var CATS_TC = ["全部","🎤 演唱會","🎨 展覽","🏮 節慶","🏃 體育","👨‍👩👧 親子"];
-var CATS_SC = ["全部","🎤 演唱会","🎨 展览","🏮 节庆","🏃 体育","👨‍👩👧 亲子"];
+var CATS = ["All","🎤 Concerts","🎨 Exhibitions","🏮 Festivals","🏃 Sports","👨‍👩‍👧 Family"];
+var CATS_TC = ["全部","🎤 演唱會","🎨 展覽","🏮 節慶","🏃 體育","👨‍👩‍👧 親子"];
+var CATS_SC = ["全部","🎤 演唱会","🎨 展览","🏮 节庆","🏃 体育","👨‍👩‍👧 亲子"];
 
 var events = [
+  // ===== GALAXY ARENA =====
   {m:0,s:3,e:5,t:"Gareth.T - Prince Of Nothing",v:"Galaxy Arena",c:"concert",p:"MOP 588-1288",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
-   d_en:"R&B sensation Gareth.T performs his Prince Of Nothing tour finale in Macau",
-   d_tc:"R&B 音樂才子湯令山「心零王子」澳門站",
-   d_sc:"R&B 音乐才子汤令山「心零王子」澳门站"},
-  {m:0,s:3,e:4,t:"Anson Lo 盧瀚霆",v:"Londoner Arena",c:"concert",p:"TBC",l:"https://www.londonerarena.com",i:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
-   d_en:"HK pop idol Anson Lo live in concert",
-   d_tc:"香港人氣偶像盧瀚霆演唱會",
-   d_sc:"香港人气偶像卢瀚霆演唱会"},
-  {m:0,s:4,e:4,t:"楊丞琳 Rainie Yang",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80",
-   d_en:"Taiwanese singer Rainie Yang live performance",
-   d_tc:"台灣歌手楊丞琳演唱會",
-   d_sc:"台湾歌手杨丞琳演唱会"},
+   d_en:"R&B sensation Gareth.T performs his Prince Of Nothing tour finale in Macau at Galaxy Arena",
+   d_tc:"R&B 音樂才子湯令山「心零王子」澳門站 @ 銀河綜藝館",
+   d_sc:"R&B 音乐才子汤令山「心零王子」澳门站 @ 银河综艺馆"},
   {m:0,s:11,e:12,t:"趙露思 STAY ROMANTIC",v:"Galaxy Arena",c:"concert",p:"MOP 690-2220",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80",
-   d_en:"Zhao Lusi first Macau concert! Two shows",
-   d_tc:"趙露思首個澳門演唱會！共兩場",
-   d_sc:"赵露思首个澳门演唱会！共两场"},
+   d_en:"Zhao Lusi first Macau concert! STAY ROMANTIC at Galaxy Arena",
+   d_tc:"趙露思首個澳門演唱會！STAY ROMANTIC @ 銀河綜藝館",
+   d_sc:"赵露思首个澳门演唱会！STAY ROMANTIC @ 银河综艺馆"},
+  {m:0,s:16,e:17,t:"TF家族 2026 運動會",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
+   d_en:"TF Family 2026 Sports Meet at Galaxy Arena",
+   d_tc:"TF家族 2026 夏日運動會 @ 銀河綜藝館",
+   d_sc:"TF家族 2026 夏日运动会 @ 银河综艺馆"},
+  {m:0,s:24,e:26,t:"陳輝陽作品演唱會-K歌之王",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
+   d_en:"Chan Fai Young King of Pop concert featuring Eason Chan, Joey Yung, Bibi Zhou, Gigi Yim, Xiao Fei",
+   d_tc:"陳輝陽作品演唱會！陳奕迅+容祖兒+周筆暢+炎明熹+小肥 @ 銀河綜藝館",
+   d_sc:"陈辉阳作品演唱会！陈奕迅+容祖儿+周笔畅+炎明熹+小肥 @ 银河综艺馆"},
+  {m:1,s:1,e:2,t:"HENRY 劉憲華 ENJOY THE SHOW",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
+   d_en:"HENRY LAU Enjoy The Show world tour at Galaxy Arena",
+   d_tc:"劉憲華 ENJOY THE SHOW 世界巡演 @ 銀河綜藝館",
+   d_sc:"刘宪华 ENJOY THE SHOW 世界巡演 @ 银河综艺馆"},
+  {m:1,s:29,e:29,t:"(G)I-DLE WORLD TOUR [Syncopation]",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+   d_en:"(G)I-DLE world tour in Macau at Galaxy Arena",
+   d_tc:"(G)I-DLE 世界巡迴演唱會澳門站 @ 銀河綜藝館",
+   d_sc:"(G)I-DLE 世界巡回演唱会澳门站 @ 银河综艺馆"},
+  {m:3,s:16,e:18,t:"ENHYPEN BLOOD SAGA",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
+   d_en:"ENHYPEN world tour BLOOD SAGA at Galaxy Arena",
+   d_tc:"ENHYPEN BLOOD SAGA 世界巡演 @ 銀河綜藝館",
+   d_sc:"ENHYPEN BLOOD SAGA 世界巡演 @ 银河综艺馆"},
+
+  // ===== G BOX (Galaxy) =====
+  {m:1,s:14,e:16,t:"澳洲雷霆猛男SHOW",v:"Galaxy G Box",c:"concert",p:"TBC",l:"https://www.galaxymacau.com",i:"https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80",
+   d_en:"Australia Thunder Down Under Show - Girls Night Out at G Box",
+   d_tc:"澳洲雷霆猛男SHOW 夏日限定 Girls Night Out @ G Box",
+   d_sc:"澳洲雷霆猛男SHOW 夏日限定 Girls Night Out @ G Box"},
+
+  // ===== LONDONER ARENA =====
+  {m:0,s:3,e:4,t:"Anson Lo 盧瀚霆",v:"Londoner Arena",c:"concert",p:"TBC",l:"https://www.londonerarena.com",i:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
+   d_en:"HK pop idol Anson Lo live at Londoner Arena",
+   d_tc:"香港人氣偶像盧瀚霆演唱會 @ 倫敦人綜藝館",
+   d_sc:"香港人气偶像卢瀚霆演唱会 @ 伦敦人综艺馆"},
   {m:0,s:18,e:18,t:"MAMAMOO WORLD TOUR",v:"Londoner Arena",c:"concert",p:"MOP 988-1888",l:"https://www.londonerarena.com",i:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
-   d_en:"MAMAMOO full member world tour in Macau!",
-   d_tc:"MAMAMOO 世界巡迴演唱會澳門站！全員合體",
-   d_sc:"MAMAMOO 世界巡回演唱会澳门站！全员合体"},
-  {m:0,s:22,e:26,t:"FIVB Volleyball Finals",v:"East Asian Games Dome",c:"sports",p:"TBC",l:"https://www.macaotourism.gov.mo",i:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80",
-   d_en:"World Volleyball Finals! 8 top teams compete",
-   d_tc:"世界女排聯賽總決賽！8支頂尖勁旅爭冠",
-   d_sc:"世界女排联赛总决赛！8支顶尖劲旅争冠"},
-  {m:0,s:24,e:26,t:"陳奕迅 Eason Chan",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
-   d_en:"Eason Chan live with Joey Yung, Bibi Zhou, Gigi Yim",
-   d_tc:"陳奕迅演唱會！嘉賓：容祖兒、周筆暢、炎明熹、小肥",
-   d_sc:"陈奕迅演唱会！嘉宾：容祖儿、周笔畅、炎明熹、小肥"},
-  {m:1,s:1,e:2,t:"HENRY 劉憲華",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
-   d_en:"HENRY LAU Enjoy The Show world tour",
-   d_tc:"劉憲華 Enjoy The Show 世界巡演澳門站",
-   d_sc:"刘宪华 Enjoy The Show 世界巡演澳门站"},
-  {m:1,s:15,e:15,t:"ITZY WORLD TOUR",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
-   d_en:"ITZY world tour in Macau!",
-   d_tc:"ITZY 世界巡迴演唱會澳門站",
-   d_sc:"ITZY 世界巡回演唱会澳门站"},
-  {m:2,s:11,e:12,t:"BABYMONSTER [CHOOM]",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
-   d_en:"BABYMONSTER world tour in Macau!",
-   d_tc:"BABYMONSTER 世界巡演澳門站！",
-   d_sc:"BABYMONSTER 世界巡演澳门站！"},
+   d_en:"MAMAMOO full member world tour at Londoner Arena",
+   d_tc:"MAMAMOO 世界巡迴演唱會！全員合體 @ 倫敦人綜藝館",
+   d_sc:"MAMAMOO 世界巡回演唱会！全员合体 @ 伦敦人综艺馆"},
   {m:2,s:19,e:20,t:"TWS Tour",v:"Londoner Arena",c:"concert",p:"TBC",l:"https://www.londonerarena.com",i:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
-   d_en:"TWS live in Macau",
-   d_tc:"TWS 澳門演唱會",
-   d_sc:"TWS 澳门演唱会"},
+   d_en:"TWS live at Londoner Arena",
+   d_tc:"TWS 澳門演唱會 @ 倫敦人綜藝館",
+   d_sc:"TWS 澳门演唱会 @ 伦敦人综艺馆"},
+
+  // ===== VENETIAN ARENA =====
+  {m:0,s:4,e:4,t:"楊丞琳 Rainie Yang",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80",
+   d_en:"Taiwanese singer Rainie Yang at Venetian Arena",
+   d_tc:"台灣歌手楊丞琳演唱會 @ 威尼斯人綜藝館",
+   d_sc:"台湾歌手杨丞琳演唱会 @ 威尼斯人综艺馆"},
+  {m:1,s:15,e:15,t:"ITZY WORLD TOUR",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+   d_en:"ITZY world tour at Venetian Arena",
+   d_tc:"ITZY 世界巡迴演唱會 @ 威尼斯人綜藝館",
+   d_sc:"ITZY 世界巡回演唱会 @ 威尼斯人综艺馆"},
+  {m:2,s:11,e:12,t:"BABYMONSTER [CHOOM]",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+   d_en:"BABYMONSTER world tour at Venetian Arena",
+   d_tc:"BABYMONSTER 世界巡演 @ 威尼斯人綜藝館",
+   d_sc:"BABYMONSTER 世界巡演 @ 威尼斯人综艺馆"},
   {m:3,s:9,e:11,t:"NBA China Game",v:"Venetian Arena",c:"sports",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80",
-   d_en:"NBA China Game in Macau!",
-   d_tc:"NBA 中國賽澳門站！",
-   d_sc:"NBA 中国赛澳门站！"},
-  {m:3,s:17,e:18,t:"ENHYPEN BLOOD SAGA",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
-   d_en:"ENHYPEN world tour in Macau!",
-   d_tc:"ENHYPEN 世界巡演澳門站！",
-   d_sc:"ENHYPEN 世界巡演澳门站！"}
+   d_en:"NBA China Game at Venetian Arena",
+   d_tc:"NBA 中國賽澳門站 @ 威尼斯人綜藝館",
+   d_sc:"NBA 中国赛澳门站 @ 威尼斯人综艺馆"},
+
+  // ===== SPORTS =====
+  {m:0,s:22,e:26,t:"FIVB Volleyball Finals",v:"East Asian Games Dome",c:"sports",p:"TBC",l:"https://www.macaotourism.gov.mo",i:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80",
+   d_en:"FIVB Volleyball Nations League Finals! 8 top teams",
+   d_tc:"世界女排聯賽總決賽！8支頂尖勁旅爭冠 @ 東亞運體育館",
+   d_sc:"世界女排联赛总决赛！8支顶尖劲旅争冠 @ 东亚运体育馆"}
 ];
 
 var curLang = 0, curMonth = 0, curCat = "all";
@@ -158,15 +178,12 @@ function setLang(l) {
   if (l === 0) { title.textContent = "Macau Events"; sub.textContent = "Your guide to concerts, exhibitions, festivals & sports"; }
   else if (l === 1) { title.textContent = "澳門活動"; sub.textContent = "演唱會、展覽、節慶、體育賽事指南"; }
   else { title.textContent = "澳门活动"; sub.textContent = "演唱会、展览、节庆、体育赛事指南"; }
-  // Update month buttons
   var mBtns = document.querySelectorAll("#monthNav button");
   var mNames = l === 0 ? MONTHS : (l === 1 ? MONTHS_TC : MONTHS_SC);
   for (var i = 0; i < mBtns.length; i++) mBtns[i].textContent = mNames[i];
-  // Update category buttons
   var cBtns = document.querySelectorAll("#catFilters button");
   var cNames = l === 0 ? CATS : (l === 1 ? CATS_TC : CATS_SC);
   for (var i = 0; i < cBtns.length; i++) cBtns[i].textContent = cNames[i];
-  // Update lang buttons
   document.querySelectorAll(".lang-bar button").forEach(function(b) { b.classList.remove("active"); });
   document.querySelectorAll(".lang-bar button")[l].classList.add("active");
   render();
@@ -189,7 +206,6 @@ function render() {
   var html = "";
   for (var i = 0; i < filtered.length; i++) {
     var e = filtered[i];
-    var ds = e.m + 1; // month number
     var dateStr = (curLang === 0 ? MONTHS[e.m] : (curLang === 1 ? MONTHS_TC[e.m] : MONTHS_SC[e.m])) + " " + e.s + (e.s !== e.e ? " - " + e.e : "");
     var desc = curLang === 0 ? e.d_en : (curLang === 1 ? e.d_tc : e.d_sc);
     var priceHtml = e.p ? "<div class='price'>💰 " + e.p + "</div>" : "";
@@ -240,7 +256,6 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-// Event listeners
 document.getElementById("monthNav").addEventListener("click", function(ev) {
   var btn = ev.target.closest("button");
   if (!btn) return;
