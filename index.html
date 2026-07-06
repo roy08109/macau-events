@@ -3,281 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Macau Events Calendar 2026 🎭</title>
-<meta name="description" content="Complete Macau events calendar 2026 - concerts, exhibitions, festivals, sports, and more.">
+<title>Macau Events 2026</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', 'Noto Sans SC', sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
-  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: 30px 20px; text-align: center; position: relative; overflow: hidden; }
-  .header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1200&q=80') center/cover; opacity: 0.1; }
-  .header h1 { font-size: 2.2em; margin-bottom: 5px; position: relative; z-index: 1; }
-  .header h1 span { color: #FFD700; }
-  .header p { font-size: 1em; opacity: 0.9; position: relative; z-index: 1; }
-  .lang-bar { background: #0d1b3e; padding: 10px; text-align: center; }
-  .lang-bar button { padding: 6px 18px; margin: 0 4px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: rgba(255,255,255,0.7); border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 600; }
-  .lang-bar button:hover { background: rgba(255,255,255,0.1); color: white; }
-  .lang-bar button.active { background: #FFD700; color: #1a1a2e; border-color: #FFD700; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-  .month-nav { display: flex; gap: 8px; overflow-x: auto; padding: 15px 0; margin-bottom: 20px; }
-  .month-nav button { padding: 10px 20px; border: 2px solid #0f3460; background: white; border-radius: 25px; cursor: pointer; font-weight: 600; font-size: 14px; white-space: nowrap; }
-  .month-nav button:hover { background: #0f3460; color: white; }
-  .month-nav button.active { background: #0f3460; color: white; }
-  .cat-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
-  .cat-filters button { padding: 6px 16px; border: 1px solid #ddd; background: white; border-radius: 15px; cursor: pointer; font-size: 13px; }
-  .cat-filters button:hover { background: #e9ecef; }
-  .cat-filters button.active { background: #FFD700; border-color: #FFD700; color: #333; }
-  .events-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
-  .event-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s; }
-  .event-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
-  .event-img { width: 100%; height: 180px; object-fit: cover; display: block; background: #e9ecef; }
-  .event-img-placeholder { width: 100%; height: 180px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 48px; }
-  .event-body { padding: 15px; }
-  .event-date { font-size: 13px; color: #0f3460; font-weight: 600; margin-bottom: 5px; }
-  .event-body h3 { font-size: 16px; margin-bottom: 5px; color: #1a1a2e; }
-  .event-body .venue { font-size: 13px; color: #666; margin-bottom: 3px; }
-  .event-body .price { font-size: 13px; color: #e74c3c; font-weight: 600; }
-  .event-cat { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-bottom: 6px; }
-  .cat-concert { background: #ffe0e0; color: #c0392b; }
-  .cat-exhibition { background: #e0f0ff; color: #2980b9; }
-  .cat-festival { background: #fff3e0; color: #e67e22; }
-  .cat-sports { background: #e8f5e9; color: #27ae60; }
-  .cat-food { background: #fce4ec; color: #e91e63; }
-  .cat-family { background: #f3e5f5; color: #9c27b0; }
-  .event-desc { font-size: 13px; color: #666; margin-top: 6px; line-height: 1.5; }
-  .event-links { margin-top: 10px; }
-  .event-links a { display: inline-block; padding: 5px 14px; background: #0f3460; color: white; text-decoration: none; border-radius: 4px; font-size: 12px; margin-right: 5px; }
-  .event-links a:hover { background: #1a5276; }
-  .venue-section { margin-top: 40px; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-  .venue-section h2 { margin-bottom: 20px; color: #1a1a2e; }
-  .venue-grid { display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
-  .venue-card { background: #f8f9fa; border-radius: 10px; overflow: hidden; }
-  .venue-card img { width: 100%; height: 140px; object-fit: cover; }
-  .venue-card .v-info { padding: 12px; }
-  .venue-card .v-info h4 { font-size: 14px; margin-bottom: 3px; }
-  .venue-card .v-info p { font-size: 12px; color: #666; }
-  .footer { text-align: center; padding: 30px; color: #999; font-size: 13px; }
-  @media (max-width: 600px) { .header h1 { font-size: 1.6em; } .events-grid { grid-template-columns: 1fr; } }
-  .stats-bar { display: flex; gap: 20px; justify-content: center; padding: 20px; background: white; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); flex-wrap: wrap; }
-  .stat-item { text-align: center; }
-  .stat-item .num { font-size: 28px; font-weight: bold; color: #0f3460; }
-  .stat-item .label { font-size: 13px; color: #666; }
-  .featured-banner { background: linear-gradient(135deg, #FFD700, #FFA500); color: #1a1a2e; padding: 15px 20px; border-radius: 12px; margin-bottom: 25px; text-align: center; font-weight: 600; font-size: 15px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f9fa;color:#333}
+.header{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;padding:30px 20px;text-align:center}
+.header h1{font-size:2em}
+.header h1 span{color:#FFD700}
+.lang-bar{background:#0d1b3e;padding:10px;text-align:center}
+.lang-bar button{padding:6px 18px;margin:0 4px;border:1px solid rgba(255,255,255,0.3);background:0 0;color:rgba(255,255,255,0.7);border-radius:4px;cursor:pointer;font-size:14px;font-weight:600}
+.lang-bar button.active{background:#FFD700;color:#1a1a2e;border-color:#FFD700}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.month-nav{display:flex;gap:8px;overflow-x:auto;padding:15px 0;margin-bottom:20px}
+.month-nav button{padding:10px 20px;border:2px solid #0f3460;background:#fff;border-radius:25px;cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
+.month-nav button.active{background:#0f3460;color:#fff}
+.cat-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:25px}
+.cat-filters button{padding:6px 16px;border:1px solid #ddd;background:#fff;border-radius:15px;cursor:pointer;font-size:13px}
+.cat-filters button.active{background:#FFD700;border-color:#FFD700}
+.events-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.event-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer}
+.event-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.12)}
+.event-img{width:100%;height:180px;object-fit:cover;background:#e9ecef}
+.event-body{padding:15px}
+.event-date{font-size:13px;color:#0f3460;font-weight:600;margin-bottom:5px}
+.event-body h3{font-size:16px;margin-bottom:5px;color:#1a1a2e}
+.event-body .venue{font-size:13px;color:#666}
+.event-body .price{font-size:13px;color:#e74c3c;font-weight:600}
+.event-cat{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;margin-bottom:6px}
+.cat-concert{background:#ffe0e0;color:#c0392b}
+.cat-exhibition{background:#e0f0ff;color:#2980b9}
+.cat-festival{background:#fff3e0;color:#e67e22}
+.cat-sports{background:#e8f5e9;color:#27ae60}
+.cat-family{background:#f3e5f5;color:#9c27b0}
+.event-desc{font-size:13px;color:#666;margin-top:6px}
+.event-links{margin-top:10px}
+.event-links a{display:inline-block;padding:5px 14px;background:#0f3460;color:#fff;text-decoration:none;border-radius:4px;font-size:12px}
+.footer{text-align:center;padding:30px;color:#999;font-size:13px}
+@media(max-width:600px){.header h1{font-size:1.6em}.events-grid{grid-template-columns:1fr}}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center;padding:20px}
+.modal-box{background:#fff;border-radius:12px;max-width:550px;width:100%;max-height:85vh;overflow-y:auto;padding:25px;position:relative}
+.modal-close{position:absolute;top:10px;right:15px;font-size:28px;cursor:pointer;color:#999;background:none;border:none}
+.modal-box img{width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:15px}
+.modal-box h2{font-size:22px;margin-bottom:10px}
+.modal-box .info{font-size:15px;color:#666;margin:5px 0}
+.modal-box .desc{font-size:15px;color:#444;margin:15px 0;line-height:1.8}
+.modal-box .btn{display:inline-block;padding:12px 30px;background:#0f3460;color:#fff;text-decoration:none;border-radius:8px;font-size:16px}
 </style>
 </head>
 <body>
-<div class="header"><h1>🎭 <span id="langTitle">Macau Events</span> 2026</h1><p id="langSubtitle">Your ultimate guide to concerts, exhibitions, festivals & sports in Macau</p></div>
-<div class="lang-bar"><button class="active" onclick="switchLang('en')">EN</button><button onclick="switchLang('tc')">繁</button><button onclick="switchLang('sc')">簡</button></div>
+
+<div class="header"><h1>🎭 <span id="title">Macau Events</span> 2026</h1><p id="subtitle">Your guide to concerts, exhibitions, festivals & sports</p></div>
+<div class="lang-bar">
+  <button class="active" onclick="setLang(0)">EN</button>
+  <button onclick="setLang(1)">繁</button>
+  <button onclick="setLang(2)">簡</button>
+</div>
 <div class="container">
-  <div class="stats-bar">
-    <div class="stat-item"><div class="num">42</div><div class="label" id="sEvents">Events</div></div>
-    <div class="stat-item"><div class="num">12</div><div class="label" id="sVenues">Venues</div></div>
-    <div class="stat-item"><div class="num">6</div><div class="label" id="sCats">Categories</div></div>
-    <div class="stat-item"><div class="num">4000万+</div><div class="label" id="sVisitors">Annual Visitors</div></div>
-  </div>
-  <div class="featured-banner" id="featuredBanner">🔥 HOT: FIVB Volleyball Finals Jul 22-26 | MAMAMOO Jul 18 | Eason Chan Jul 24-26</div>
   <div class="month-nav" id="monthNav">
-    <button class="active" data-month="jul" id="m7">July</button>
-    <button data-month="aug" id="m8">August</button>
-    <button data-month="sep" id="m9">September</button>
-    <button data-month="oct" id="m10">October</button>
+    <button class="active" data-m="0">July</button>
+    <button data-m="1">August</button>
+    <button data-m="2">September</button>
+    <button data-m="3">October</button>
   </div>
   <div class="cat-filters" id="catFilters">
-    <button class="active" data-cat="all" id="cAll">All</button>
-    <button data-cat="concert" id="cConcert">🎤 Concerts</button>
-    <button data-cat="exhibition" id="cExhibition">🎨 Exhibitions</button>
-    <button data-cat="festival" id="cFestival">🏮 Festivals</button>
-    <button data-cat="sports" id="cSports">🏃 Sports</button>
-    <button data-cat="family" id="cFamily">👨‍👩‍👧 Family</button>
+    <button class="active" data-c="all">All</button>
+    <button data-c="concert">🎤 Concerts</button>
+    <button data-c="exhibition">🎨 Exhibitions</button>
+    <button data-c="festival">🏮 Festivals</button>
+    <button data-c="sports">🏃 Sports</button>
+    <button data-c="family">👨‍👩‍👧 Family</button>
   </div>
-  <div class="events-grid" id="eventsGrid"></div>
-
-  <div class="venue-section">
-    <h2 id="vTitle">📍 Major Venues</h2>
-    <div class="venue-grid">
-      <div class="venue-card"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80" alt="Galaxy Arena"><div class="v-info"><h4>Galaxy Arena</h4><p>16,000 seats · Galaxy Macau</p></div></div>
-      <div class="venue-card"><img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80" alt="Londoner Arena"><div class="v-info"><h4>Londoner Arena</h4><p>Londoner Macau · Cotai</p></div></div>
-      <div class="venue-card"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80" alt="Venetian Arena"><div class="v-info"><h4>Venetian Arena</h4><p>15,000 seats · The Venetian</p></div></div>
-      <div class="venue-card"><img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&q=80" alt="Studio City"><div class="v-info"><h4>Studio City</h4><p>New濠影汇 · Cotai</p></div></div>
-    </div>
-  </div>
-  <div style="text-align:center;padding:20px;color:#999;font-size:12px;margin-top:20px">📢 Google AdSense Ready · High CPC Travel Niche</div>
+  <div class="events-grid" id="grid"></div>
 </div>
 
-<div id="modal-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center;padding:20px" onclick="if(event.target===this)closeModal()">
-  <div id="modal-content" style="background:white;border-radius:12px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;padding:25px;box-shadow:0 10px 40px rgba(0,0,0,0.3)"></div>
+<div class="modal" id="modal" onclick="if(event.target==this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalBody"></div>
+  </div>
 </div>
-<div class="footer"><p>© 2026 Macau Events Guide 🦐</p></div>
+
+<div class="footer"><p>© 2026 Macau Events Guide</p></div>
 
 <script>
-const LANG = {
-  en: { title:'Macau Events', sub:'Your ultimate guide to concerts, exhibitions, festivals & sports in Macau', sEv:'Events', sVe:'Venues', sCa:'Categories', sVi:'Annual Visitors', m7:'July', m8:'August', m9:'September', m10:'October', cA:'All', cC:'🎤 Concerts', cE:'🎨 Exhibitions', cF:'🏮 Festivals', cS:'🏃 Sports', cFa:'👨‍👩‍👧 Family', vT:'📍 Major Venues', nE:'No events found 📭', gT:'🎫 Get Tickets', banner:'🔥 HOT: FIVB Volleyball Finals Jul 22-26 | MAMAMOO Jul 18 | Eason Chan Jul 24-26',
-    d:['R&B sensation Gareth.T performs his "Prince Of Nothing" tour finale in Macau at Galaxy Arena','HK pop idol Anson Lo卢瀚霆 live at Londoner Arena','Taiwanese singer Rainie Yang杨丞琳 live at Venetian Arena','SKAI ISYOURGOD揽佬 live at Broadway Macau','Mango Jam芒果酱 live at Galaxy G Box','Zhao Lusi赵露思 first Macau concert! Two nights of STAY ROMANTIC at Galaxy Arena','K-pop star HYERI李惠利 fan meeting at Broadway Macau','Korean actor KIM JI WOONG金地雄 fan meeting at Studio City','NCT JNJM (JENO x JAEMIN) special fan tour at Londoner Arena','Thai star PoohKrittin fan meeting at Galaxy G Box','TF Family 2026 Summer Sports Meet & Fan Event at Galaxy Arena','MAMAMOO全员合体! World Tour [4WARD] at Londoner Arena','HK hip hop legends FAMA农夫 live at Venetian Arena','ifeye first Asia Pacific tour [If I] at Galaxy G Box','LYKN DUSK AND DAWN World Tour at Broadway Macau','FIVB Volleyball Nations League Finals! 8 top teams compete at East Asian Games Dome','Eason Chan陈奕迅 live with special guests Joey Yung, Bibi Zhou, Gigi Yim at Galaxy Arena','AND2BLE "Welcome to Qurious" concert at Venetian Arena','SUPER JUNIOR Ryeowook金厉旭 solo concert at Londoner Theatre','"Ancient China" cultural exhibition - 400 exhibits from 22 national museums (until Aug 7)','3rd Macau International Children\'s Arts Festival - theatre, workshops, films all summer!','World Cup Series at 3 districts: football culture, markets, live music','"Art Walk" Weekend Arts Party at Nam Van Lake - performances, food, crafts','HENRY Lau刘宪华 "Enjoy The Show" world tour at Galaxy Arena','K-pop boy group P1Harmony fan meeting at Studio City','HK singer Jade Kwan关心妍 live at Broadway Macau','Taiwan rock legend Zhao Chuan赵传 live at Londoner Arena','TVXQ U-KNOW Jung Yunho郑允浩 solo concert at Broadway Macau','ITZY WORLD TOUR at Venetian Arena!','AMPERS&ONE live at Galaxy G Box','FNC Family Concert at Londoner Arena','"Qin\'ao Cup" Badminton Open - Macau-Hengqin tournament','Children\'s Arts Festival continues! All August long','Last chance! Ancient China exhibition ends Aug 7','Grammy-winning jazz legend Jeff Lorber first Macau concert','BABYMONSTER WORLD TOUR [CHOOM] at Venetian Arena!','TWS live at Londoner Arena','Mid-Autumn Festival celebrations across Macau','NBA China Game 2026 at Venetian Arena!','ENHYPEN BLOOD SAGA World Tour at Galaxy Arena!','Halloween parties and events across Macau','Macau Grand Prix November预热 events begin']
-  },
-  tc: { title:'澳門活動', sub:'演唱會、展覽、節慶、體育賽事一站式指南', sEv:'活動', sVe:'場館', sCa:'分類', sVi:'年遊客量', m7:'7月', m8:'8月', m9:'9月', m10:'10月', cA:'全部', cC:'🎤 演唱會', cE:'🎨 展覽', cF:'🏮 節慶', cS:'🏃 體育', cFa:'👨‍👩‍👧 親子', vT:'📍 主要場館', nE:'沒有找到符合條件的活動 📭', gT:'🎫 購票', banner:'🔥 熱門：女排總決賽7.22-26 | MAMAMOO 7.18 | 陳奕迅 7.24-26',
-    d:['R&B 音樂才子湯令山「心零王子」澳門站 @ 銀河綜藝館','香港人氣偶像盧瀚霆演唱會 @ 倫敦人綜藝館','台灣歌手楊丞琳演唱會 @ 威尼斯人綜藝館','攬佬 SKAI ISYOURGOD 演唱會 @ 百老匯舞台','芒果醬樂隊演出 @ 銀河 G Box','趙露思首個澳門演唱會！STAY ROMANTIC 兩晚 @ 銀河綜藝館','韓國人氣女星李惠利粉絲見面會 @ 百老匯舞台','韓國演員金地雄粉絲見面會 @ 新濠影滙','NCT JNJM (JENO x JAEMIN) 粉絲巡演 @ 倫敦人綜藝館','泰國明星 PoohKrittin 粉絲見面會 @ 銀河 G Box','TF家族 2026 夏日運動會 @ 銀河綜藝館','MAMAMOO 世界巡演 [4WARD] 澳門站！全員合體 @ 倫敦人綜藝館','香港 Hip Hop 組合農夫演唱會 @ 威尼斯人綜藝館','ifeye 首次亞太巡演 [If I] @ 銀河 G Box','LYKN 世界巡演 @ 百老匯舞台','世界女排聯賽總決賽！8支頂尖勁旅爭冠 @ 東亞運體育館','陳奕迅演唱會！嘉賓：容祖兒、周筆暢、炎明熹、小肥 @ 銀河綜藝館','AND2BLE "Welcome to Qurious" 演唱會 @ 威尼斯人綜藝館','SUPER JUNIOR 金厲旭 solo 演唱會 @ 倫敦人劇場','「文創裡的中國古代」展覽 - 22間國家博物館400件珍品（至8月7日）','第三屆澳門國際兒童藝術節 - 戲劇、工作坊、展覽、電影！','世界盃系列活動 @ 三個片區：足球文化、市集、音樂','「藝遊雅文」週末派對 @ 南灣湖 - 表演、美食、手作','劉憲華 "Enjoy The Show" 世界巡演 @ 銀河綜藝館','韓國男團 P1Harmony 粉絲見面會 @ 新濠影滙','關心妍演唱會 @ 百老匯舞台','台灣搖滾傳奇趙傳演唱會 @ 倫敦人綜藝館','東方神起 U-KNOW 鄭允浩演唱會 @ 百老匯舞台','ITZY 世界巡迴演唱會 @ 威尼斯人綜藝館','AMPERS&ONE 演出 @ 銀河 G Box','FNC 家族演唱會 @ 倫敦人綜藝館','「琴澳盃」羽毛球公開賽','兒童藝術節繼續！整個8月都有活動','最後機會！古代中國展覽至8月7日','格林美獎爵士傳奇 Jeff Lorber 首度澳門演出','BABYMONSTER 世界巡演 [CHOOM] @ 威尼斯人綜藝館！','TWS 澳門演唱會 @ 倫敦人綜藝館','中秋節慶祝活動','NBA 中國賽澳門站 @ 威尼斯人綜藝館！','ENHYPEN BLOOD SAGA 世界巡演 @ 銀河綜藝館！','萬聖節派對活動','澳門格蘭披治大賽車月預熱活動']
-  },
-  sc: { title:'澳门活动', sub:'演唱会、展览、节庆、体育赛事一站式指南', sEv:'活动', sVe:'场馆', sCa:'分类', sVi:'年游客量', m7:'7月', m8:'8月', m9:'9月', m10:'10月', cA:'全部', cC:'🎤 演唱会', cE:'🎨 展览', cF:'🏮 节庆', cS:'🏃 体育', cFa:'👨‍👩‍👧 亲子', vT:'📍 主要场馆', nE:'没有找到符合条件的活动 📭', gT:'🎫 购票', banner:'🔥 热门：女排总决赛7.22-26 | MAMAMOO 7.18 | 陈奕迅 7.24-26',
-    d:['R&B 音乐才子汤令山「心零王子」澳门站 @ 银河综艺馆','香港人气偶像卢瀚霆演唱会 @ 伦敦人综艺馆','台湾歌手杨丞琳演唱会 @ 威尼斯人综艺馆','揽佬 SKAI ISYOURGOD 演唱会 @ 百老汇舞台','芒果酱乐队演出 @ 银河 G Box','赵露思首个澳门演唱会！STAY ROMANTIC 两晚 @ 银河综艺馆','韩国人气女星李惠利粉丝见面会 @ 百老汇舞台','韩国演员金地雄粉丝见面会 @ 新濠影汇','NCT JNJM (JENO x JAEMIN) 粉丝巡演 @ 伦敦人综艺馆','泰国明星 PoohKrittin 粉丝见面会 @ 银河 G Box','TF家族 2026 夏日运动会 @ 银河综艺馆','MAMAMOO 世界巡演 [4WARD] 澳门站！全员合体 @ 伦敦人综艺馆','香港 Hip Hop 组合农夫演唱会 @ 威尼斯人综艺馆','ifeye 首次亚太巡演 [If I] @ 银河 G Box','LYKN 世界巡演 @ 百老汇舞台','世界女排联赛总决赛！8支顶尖劲旅争冠 @ 东亚运体育馆','陈奕迅演唱会！嘉宾：容祖儿、周笔畅、炎明熹、小肥 @ 银河综艺馆','AND2BLE "Welcome to Qurious" 演唱会 @ 威尼斯人综艺馆','SUPER JUNIOR 金厉旭 solo 演唱会 @ 伦敦人剧场','「文创里的中国古代」展览 - 22间国家博物馆400件珍品（至8月7日）','第三届澳门国际儿童艺术节 - 戏剧、工作坊、展览、电影！','世界杯系列活动 @ 三个片区：足球文化、市集、音乐','「艺游雅文」周末派对 @ 南湾湖 - 表演、美食、手作','刘宪华 "Enjoy The Show" 世界巡演 @ 银河综艺馆','韩国男团 P1Harmony 粉丝见面会 @ 新濠影汇','关心妍演唱会 @ 百老汇舞台','台湾摇滚传奇赵传演唱会 @ 伦敦人综艺馆','东方神起 U-KNOW 郑允浩演唱会 @ 百老汇舞台','ITZY 世界巡回演唱会 @ 威尼斯人综艺馆','AMPERS&ONE 演出 @ 银河 G Box','FNC 家族演唱会 @ 伦敦人综艺馆','「琴澳杯」羽毛球公开赛','儿童艺术节继续！整个8月都有活动','最后机会！古代中国展览至8月7日','格莱美奖爵士传奇 Jeff Lorber 首度澳门演出','BABYMONSTER 世界巡演 [CHOOM] @ 威尼斯人综艺馆！','TWS 澳门演唱会 @ 伦敦人综艺馆','中秋节庆祝活动','NBA 中国赛澳门站 @ 威尼斯人综艺馆！','ENHYPEN BLOOD SAGA 世界巡演 @ 银河综艺馆！','万圣节派对活动','澳门格兰披治大赛车月预热活动']
-  }
-};
+// ===== DATA =====
+var MONTHS = ["July","August","September","October"];
+var MONTHS_TC = ["7月","8月","9月","10月"];
+var MONTHS_SC = ["7月","8月","9月","10月"];
+var CATS = ["All","🎤 Concerts","🎨 Exhibitions","🏮 Festivals","🏃 Sports","👨‍👩👧 Family"];
+var CATS_TC = ["全部","🎤 演唱會","🎨 展覽","🏮 節慶","🏃 體育","👨‍👩👧 親子"];
+var CATS_SC = ["全部","🎤 演唱会","🎨 展览","🏮 节庆","🏃 体育","👨‍👩👧 亲子"];
 
-const events = [
-  {id:1,m:'jul',s:3,e:5,t:'Gareth.T 湯令山 - Prince Of Nothing',v:'Galaxy Arena',c:'concert',p:'MOP 588-1288',l:'https://www.galaxyicc.com',di:0,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80'},
-  {id:2,m:'jul',s:3,e:4,t:'Anson Lo 盧瀚霆',v:'Londoner Arena',c:'concert',p:'TBC',l:'https://www.londonerarena.com',di:1,img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80'},
-  {id:3,m:'jul',s:4,e:4,t:'楊丞琳 Rainie Yang',v:'Venetian Arena',c:'concert',p:'TBC',l:'https://www.venetianmacao.com',di:2,img:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80'},
-  {id:4,m:'jul',s:4,e:4,t:'攬佬 SKAI ISYOURGOD',v:'Broadway',c:'concert',p:'TBC',l:'https://www.broadwaymacau.com.mo',di:3,img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80'},
-  {id:5,m:'jul',s:5,e:5,t:'芒果醬',v:'Galaxy G Box',c:'concert',p:'TBC',l:'https://www.galaxyicc.com',di:4,img:'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&q=80'},
-  {id:6,m:'jul',s:11,e:12,t:'趙露思 STAY ROMANTIC',v:'Galaxy Arena',c:'concert',p:'MOP 690-2220',l:'https://www.galaxyicc.com',di:5,img:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80'},
-  {id:7,m:'jul',s:11,e:11,t:'HYERI 李惠利',v:'Broadway',c:'concert',p:'TBC',l:'https://www.broadwaymacau.com.mo',di:6,img:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80'},
-  {id:8,m:'jul',s:11,e:11,t:'金地雄 KIM JI WOONG',v:'Studio City',c:'concert',p:'TBC',l:'https://www.studiocity-macau.com',di:7,img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80'},
-  {id:9,m:'jul',s:11,e:12,t:'NCT JNJM (JENO x JAEMIN)',v:'Londoner Arena',c:'concert',p:'TBC',l:'https://www.londonerarena.com',di:8,img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80'},
-  {id:10,m:'jul',s:11,e:11,t:'PoohKrittin',v:'Galaxy G Box',c:'concert',p:'TBC',l:'https://www.galaxyicc.com',di:9,img:'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&q=80'},
-  {id:11,m:'jul',s:16,e:17,t:'TF家族 2026 Summer Sports',v:'Galaxy Arena',c:'concert',p:'TBC',l:'https://www.galaxyicc.com',di:10,img:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80'},
-  {id:12,m:'jul',s:18,e:18,t:'MAMAMOO WORLD TOUR [4WARD]',v:'Londoner Arena',c:'concert',p:'MOP 988-1888',l:'https://www.londonerarena.com',di:11,img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80'},
-  {id:13,m:'jul',s:18,e:18,t:'農夫 FAMA',v:'Venetian Arena',c:'concert',p:'TBC',l:'https://www.venetianmacao.com',di:12,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80'},
-  {id:14,m:'jul',s:18,e:18,t:'ifeye [If I] Asia Tour',v:'Galaxy G Box',c:'concert',p:'TBC',l:'https://www.galaxyicc.com',di:13,img:'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&q=80'},
-  {id:15,m:'jul',s:18,e:18,t:'LYKN DUSK AND DAWN',v:'Broadway',c:'concert',p:'TBC',l:'https://www.broadwaymacau.com.mo',di:14,img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80'},
-  {id:16,m:'jul',s:22,e:26,t:'🌍 FIVB Volleyball Finals',v:'East Asian Games Dome',c:'sports',p:'TBC',l:'https://www.macaotourism.gov.mo',di:15,img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80'},
-  {id:17,m:'jul',s:24,e:26,t:'陳奕迅 Eason Chan',v:'Galaxy Arena',c:'concert',p:'TBC',l:'https://www.galaxyicc.com',di:16,img:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80'},
-  {id:18,m:'jul',s:25,e:26,t:'AND2BLE SHOW CONCERT',v:'Venetian Arena',c:'concert',p:'MOP 788-1888',l:'https://www.venetianmacao.com',di:17,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80'},
-  {id:19,m:'jul',s:25,e:26,t:'RYEOWOOK 金厲旭',v:'Londoner Theatre',c:'concert',p:'TBC',l:'https://www.londonerarena.com',di:18,img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80'},
-  {id:20,m:'jul',s:1,e:31,t:'🏛️ 文創裡的古代中國',v:'Multiple venues',c:'exhibition',p:'Free',l:'https://www.icm.gov.mo',di:19,img:'https://images.unsplash.com/photo-1566125882500-87e10f726cdc?w=400&q=80'},
-  {id:21,m:'jul',s:1,e:31,t:'🎭 兒童藝術節',v:'Multiple venues',c:'family',p:'Various',l:'https://www.icm.gov.mo/micaf',di:20,img:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80'},
-  {id:22,m:'jul',s:3,e:19,t:'⚽ 世界盃系列活動',v:'3 Districts',c:'festival',p:'Free',l:'https://ddcmacao.com',di:21,img:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&q=80'},
-  {id:23,m:'jul',s:1,e:31,t:'🎵 藝遊雅文',v:'Nam Van Lake',c:'festival',p:'Free',l:'https://www.icm.gov.mo',di:22,img:'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&q=80'},
-  {id:24,m:'aug',s:1,e:2,t:'HENRY 劉憲華',v:'Galaxy Arena',c:'concert',p:'TBC',l:'https://www.galaxyicc.com',di:23,img:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80'},
-  {id:25,m:'aug',s:1,e:1,t:'P1Harmony',v:'Studio City',c:'concert',p:'TBC',l:'https://www.studiocity-macau.com',di:24,img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800
-
-a?w=400&q=80'},
-  {id:26,m:'aug',s:1,e:1,t:'關心妍 Jade Kwan',v:'Broadway',c:'concert',p:'TBC',l:'https://www.broadwaymacau.com.mo',di:25,img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80'},
-  {id:27,m:'aug',s:1,e:1,t:'趙傳 Zhao Chuan',v:'Londoner Arena',c:'concert',p:'TBC',l:'https://www.londonerarena.com',di:26,img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80'},
-  {id:28,m:'aug',s:8,e:8,t:'U-KNOW 鄭允浩',v:'Broadway',c:'concert',p:'TBC',l:'https://www.broadwaymacau.com.mo',di:27,img:'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80'},
-  {id:29,m:'aug',s:15,e:15,t:'ITZY WORLD TOUR',v:'Venetian Arena',c:'concert',p:'TBC',l:'https://www.venetianmacao.com',di:28,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80'},
-  {id:30,m:'aug',s:22,e:22,t:'AMPERS&ONE',v:'Galaxy G Box',c:'concert',p:'TBC',l:'https://www.galaxyicc.com',di:29,img:'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&q=80'},
-  {id:31,m:'aug',s:29,e:29,t:'FNC Concert',v:'Londoner Arena',c:'concert',p:'TBC',l:'https://www.londonerarena.com',di:30,img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80'},
-  {id:32,m:'aug',s:9,e:9,t:'🏸 琴澳盃 Badminton',v:'TBC',c:'sports',p:'TBC',l:'https://www.sport.gov.mo',di:31,img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80'},
-  {id:33,m:'aug',s:1,e:30,t:'🎭 兒童藝術節 (續)',v:'Multiple venues',c:'family',p:'Various',l:'https://www.icm.gov.mo/micaf',di:32,img:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80'},
-  {id:34,m:'aug',s:1,e:7,t:'🏛️ 古代中國展 (最後)',v:'Multiple venues',c:'exhibition',p:'Free',l:'https://www.icm.gov.mo',di:33,img:'https://images.unsplash.com/photo-1566125882500-87e10f726cdc?w=400&q=80'},
-  {id:35,m:'aug',s:1,e:1,t:'🎹 Jeff Lorber Jazz',v:'TBC',c:'concert',p:'TBC',l:'https://www.macaotourism.gov.mo',di:34,img:'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80'},
-  {id:36,m:'sep',s:11,e:12,t:'BABYMONSTER [CHOOM]',v:'Venetian Arena',c:'concert',p:'TBC',l:'https://www.venetianmacao.com',di:35,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80'},
-  {id:37,m:'sep',s:19,e:20,t:'TWS Tour',v:'Londoner Arena',c:'concert',p:'TBC',l:'https://www.londonerarena.com',di:36,img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80'},
-  {id:38,m:'sep',s:1,e:30,t:'🏮 中秋節 Mid-Autumn',v:'Multiple venues',c:'festival',p:'Free',l:'https://www.macaotourism.gov.mo',di:37,img:'https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=400&q=80'},
-  {id:39,m:'oct',s:9,e:11,t:'🏀 NBA China Game',v:'Venetian Arena',c:'sports',p:'TBC',l:'https://www.venetianmacao.com',di:38,img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80'},
-  {id:40,m:'oct',s:17,e:18,t:'ENHYPEN BLOOD SAGA',v:'Galaxy Arena',c:'concert',p:'TBC',l:'https://www.galaxyicc.com',di:39,img:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80'},
-  {id:41,m:'oct',s:1,e:31,t:'🎃 Halloween Events',v:'Multiple venues',c:'festival',p:'Various',l:'https://www.macaotourism.gov.mo',di:40,img:'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=80'},
-  {id:42,m:'oct',s:1,e:31,t:'🏎️ Grand Prix 預熱',v:'Multiple venues',c:'sports',p:'TBC',l:'https://www.macaotourism.gov.mo',di:41,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&q=80'}
+var events = [
+  {m:0,s:3,e:5,t:"Gareth.T - Prince Of Nothing",v:"Galaxy Arena",c:"concert",p:"MOP 588-1288",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+   d_en:"R&B sensation Gareth.T performs his Prince Of Nothing tour finale in Macau",
+   d_tc:"R&B 音樂才子湯令山「心零王子」澳門站",
+   d_sc:"R&B 音乐才子汤令山「心零王子」澳门站"},
+  {m:0,s:3,e:4,t:"Anson Lo 盧瀚霆",v:"Londoner Arena",c:"concert",p:"TBC",l:"https://www.londonerarena.com",i:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
+   d_en:"HK pop idol Anson Lo live in concert",
+   d_tc:"香港人氣偶像盧瀚霆演唱會",
+   d_sc:"香港人气偶像卢瀚霆演唱会"},
+  {m:0,s:4,e:4,t:"楊丞琳 Rainie Yang",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80",
+   d_en:"Taiwanese singer Rainie Yang live performance",
+   d_tc:"台灣歌手楊丞琳演唱會",
+   d_sc:"台湾歌手杨丞琳演唱会"},
+  {m:0,s:11,e:12,t:"趙露思 STAY ROMANTIC",v:"Galaxy Arena",c:"concert",p:"MOP 690-2220",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80",
+   d_en:"Zhao Lusi first Macau concert! Two shows",
+   d_tc:"趙露思首個澳門演唱會！共兩場",
+   d_sc:"赵露思首个澳门演唱会！共两场"},
+  {m:0,s:18,e:18,t:"MAMAMOO WORLD TOUR",v:"Londoner Arena",c:"concert",p:"MOP 988-1888",l:"https://www.londonerarena.com",i:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
+   d_en:"MAMAMOO full member world tour in Macau!",
+   d_tc:"MAMAMOO 世界巡迴演唱會澳門站！全員合體",
+   d_sc:"MAMAMOO 世界巡回演唱会澳门站！全员合体"},
+  {m:0,s:22,e:26,t:"FIVB Volleyball Finals",v:"East Asian Games Dome",c:"sports",p:"TBC",l:"https://www.macaotourism.gov.mo",i:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80",
+   d_en:"World Volleyball Finals! 8 top teams compete",
+   d_tc:"世界女排聯賽總決賽！8支頂尖勁旅爭冠",
+   d_sc:"世界女排联赛总决赛！8支顶尖劲旅争冠"},
+  {m:0,s:24,e:26,t:"陳奕迅 Eason Chan",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
+   d_en:"Eason Chan live with Joey Yung, Bibi Zhou, Gigi Yim",
+   d_tc:"陳奕迅演唱會！嘉賓：容祖兒、周筆暢、炎明熹、小肥",
+   d_sc:"陈奕迅演唱会！嘉宾：容祖儿、周笔畅、炎明熹、小肥"},
+  {m:1,s:1,e:2,t:"HENRY 劉憲華",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
+   d_en:"HENRY LAU Enjoy The Show world tour",
+   d_tc:"劉憲華 Enjoy The Show 世界巡演澳門站",
+   d_sc:"刘宪华 Enjoy The Show 世界巡演澳门站"},
+  {m:1,s:15,e:15,t:"ITZY WORLD TOUR",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+   d_en:"ITZY world tour in Macau!",
+   d_tc:"ITZY 世界巡迴演唱會澳門站",
+   d_sc:"ITZY 世界巡回演唱会澳门站"},
+  {m:2,s:11,e:12,t:"BABYMONSTER [CHOOM]",v:"Venetian Arena",c:"concert",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+   d_en:"BABYMONSTER world tour in Macau!",
+   d_tc:"BABYMONSTER 世界巡演澳門站！",
+   d_sc:"BABYMONSTER 世界巡演澳门站！"},
+  {m:2,s:19,e:20,t:"TWS Tour",v:"Londoner Arena",c:"concert",p:"TBC",l:"https://www.londonerarena.com",i:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
+   d_en:"TWS live in Macau",
+   d_tc:"TWS 澳門演唱會",
+   d_sc:"TWS 澳门演唱会"},
+  {m:3,s:9,e:11,t:"NBA China Game",v:"Venetian Arena",c:"sports",p:"TBC",l:"https://www.venetianmacao.com",i:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80",
+   d_en:"NBA China Game in Macau!",
+   d_tc:"NBA 中國賽澳門站！",
+   d_sc:"NBA 中国赛澳门站！"},
+  {m:3,s:17,e:18,t:"ENHYPEN BLOOD SAGA",v:"Galaxy Arena",c:"concert",p:"TBC",l:"https://www.galaxyicc.com",i:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80",
+   d_en:"ENHYPEN world tour in Macau!",
+   d_tc:"ENHYPEN 世界巡演澳門站！",
+   d_sc:"ENHYPEN 世界巡演澳门站！"}
 ];
 
-let curLang = 'en', curMonth = 'jul', curCat = 'all';
+var curLang = 0, curMonth = 0, curCat = "all";
 
-
-let curLang = 'en', curMonth = 'jul', curCat = 'all';
-
-function switchLang(l) {
+function setLang(l) {
   curLang = l;
-  const t = LANG[l];
-  document.getElementById('langTitle').textContent = t.title;
-  document.getElementById('langSubtitle').textContent = t.sub;
-  document.getElementById('sEvents').textContent = t.sEv;
-  document.getElementById('sVenues').textContent = t.sVe;
-  document.getElementById('sCats').textContent = t.sCa;
-  document.getElementById('sVisitors').textContent = t.sVi;
-  document.getElementById('m7').textContent = t.m7;
-  document.getElementById('m8').textContent = t.m8;
-  document.getElementById('m9').textContent = t.m9;
-  document.getElementById('m10').textContent = t.m10;
-  document.getElementById('cAll').textContent = t.cA;
-  document.getElementById('cConcert').textContent = t.cC;
-  document.getElementById('cExhibition').textContent = t.cE;
-  document.getElementById('cFestival').textContent = t.cF;
-  document.getElementById('cSports').textContent = t.cS;
-  document.getElementById('cFamily').textContent = t.cFa;
-  document.getElementById('vTitle').textContent = t.vT;
-  document.getElementById('featuredBanner').textContent = t.banner;
-  document.querySelectorAll('.lang-bar button').forEach(function(b) { b.classList.remove('active'); });
-  if (l === 'en') document.querySelector('.lang-bar button:nth-child(1)').classList.add('active');
-  else if (l === 'tc') document.querySelector('.lang-bar button:nth-child(2)').classList.add('active');
-  else document.querySelector('.lang-bar button:nth-child(3)').classList.add('active');
+  var title = document.getElementById("title");
+  var sub = document.getElementById("subtitle");
+  if (l === 0) { title.textContent = "Macau Events"; sub.textContent = "Your guide to concerts, exhibitions, festivals & sports"; }
+  else if (l === 1) { title.textContent = "澳門活動"; sub.textContent = "演唱會、展覽、節慶、體育賽事指南"; }
+  else { title.textContent = "澳门活动"; sub.textContent = "演唱会、展览、节庆、体育赛事指南"; }
+  // Update month buttons
+  var mBtns = document.querySelectorAll("#monthNav button");
+  var mNames = l === 0 ? MONTHS : (l === 1 ? MONTHS_TC : MONTHS_SC);
+  for (var i = 0; i < mBtns.length; i++) mBtns[i].textContent = mNames[i];
+  // Update category buttons
+  var cBtns = document.querySelectorAll("#catFilters button");
+  var cNames = l === 0 ? CATS : (l === 1 ? CATS_TC : CATS_SC);
+  for (var i = 0; i < cBtns.length; i++) cBtns[i].textContent = cNames[i];
+  // Update lang buttons
+  document.querySelectorAll(".lang-bar button").forEach(function(b) { b.classList.remove("active"); });
+  document.querySelectorAll(".lang-bar button")[l].classList.add("active");
   render();
 }
 
-function getCatEmoji(c) { var m = {concert:"🎤",exhibition:"🎨",festival:"🏮",sports:"🏃",food:"🍽️",family:"👨‍👩‍👧"}; return m[c] || "📌"; }
-function getCatClass(c) { return "cat-" + c; }
-
 function render() {
-  var g = document.getElementById('eventsGrid');
-  var t = LANG[curLang];
-  var f = events.filter(function(e) { return e.m === curMonth && (curCat === "all" || e.c === curCat); });
-  f.sort(function(a,b) { return a.s - b.s; });
-  if (f.length === 0) { g.innerHTML = "<div style=\"text-align:center;padding:40px;color:#999\">" + t.nE + "</div>"; return; }
+  var grid = document.getElementById("grid");
+  var filtered = [];
+  for (var i = 0; i < events.length; i++) {
+    var e = events[i];
+    if (e.m === curMonth && (curCat === "all" || e.c === curCat)) {
+      filtered.push(e);
+    }
+  }
+  filtered.sort(function(a,b) { return a.s - b.s; });
+  if (filtered.length === 0) {
+    grid.innerHTML = "<div style='text-align:center;padding:40px;color:#999'>No events found</div>";
+    return;
+  }
   var html = "";
-  for (var i = 0; i < f.length; i++) {
-    var e = f[i];
-    var dateStr = e.m.toUpperCase() + " " + e.s + (e.s !== e.e ? " - " + e.e : "");
-    var priceHtml = e.p ? "<div class=\"price\">💰 " + e.p + "</div>" : "";
-    html += "<div class=\"event-card\" onclick=\"showEvent(" + e.id + ")\">";
-    html += "<img class=\"event-img\" src=\"" + e.img + "\" alt=\"" + e.t + "\" loading=\"lazy\" onerror=\"this.outerHTML='<div class=event-img-placeholder>🎭</div>'\">";
-    html += "<div class=\"event-body\">";
-    html += "<div class=\"event-date\">" + dateStr + "</div>";
-    html += "<span class=\"event-cat " + getCatClass(e.c) + "\">" + getCatEmoji(e.c) + " " + e.c.charAt(0).toUpperCase() + e.c.slice(1) + "</span>";
+  for (var i = 0; i < filtered.length; i++) {
+    var e = filtered[i];
+    var ds = e.m + 1; // month number
+    var dateStr = (curLang === 0 ? MONTHS[e.m] : (curLang === 1 ? MONTHS_TC[e.m] : MONTHS_SC[e.m])) + " " + e.s + (e.s !== e.e ? " - " + e.e : "");
+    var desc = curLang === 0 ? e.d_en : (curLang === 1 ? e.d_tc : e.d_sc);
+    var priceHtml = e.p ? "<div class='price'>💰 " + e.p + "</div>" : "";
+    html += "<div class='event-card' onclick='showModal(" + i + ")'>";
+    html += "<img class='event-img' src='" + e.i + "' alt='" + e.t + "' loading='lazy'>";
+    html += "<div class='event-body'>";
+    html += "<div class='event-date'>" + dateStr + "</div>";
+    html += "<span class='event-cat cat-" + e.c + "'>" + getCatEmoji(e.c) + " " + e.c + "</span>";
     html += "<h3>" + e.t + "</h3>";
-    html += "<div class=\"venue\">📍 " + e.v + "</div>";
+    html += "<div class='venue'>📍 " + e.v + "</div>";
     html += priceHtml;
-    html += "<div class=\"event-desc\">" + t.d[e.di] + "</div>";
-    html += "<div class=\"event-links\"><a href=\"" + e.l + "\" target=\"_blank\" rel=\"noopener\" onclick=\"event.stopPropagation()\">" + t.gT + "</a></div>";
+    html += "<div class='event-desc'>" + desc + "</div>";
     html += "</div></div>";
   }
-  g.innerHTML = html;
+  grid.innerHTML = html;
 }
 
-function showEvent(id) {
-  var e = events.filter(function(x) { return x.id === id; })[0];
-  if (!e) return;
-  var t = LANG[curLang];
-  var overlay = document.getElementById('modal-overlay');
-  var content = document.getElementById('modal-content');
-  var dateStr = e.m.toUpperCase() + " " + e.s + (e.s !== e.e ? " - " + e.e : "");
-  var priceHtml = e.p ? "<div style=\"font-size:18px;color:#e74c3c;font-weight:600;margin:10px 0\">💰 " + e.p + "</div>" : "";
-  content.innerHTML = "<button onclick=\"closeModal()\" style=\"float:right;background:none;border:none;font-size:28px;cursor:pointer;color:#999\">✕</button>";
-  content.innerHTML += "<img src=\"" + e.img + "\" alt=\"" + e.t + "\" style=\"width:100%;height:250px;object-fit:cover;border-radius:8px;background:#e9ecef\" onerror=\"this.outerHTML='<div style=width:100%;height:250px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:64px>🎭</div>'\">";
-  content.innerHTML += "<span class=\"event-cat " + getCatClass(e.c) + "\" style=\"margin-top:15px\">" + getCatEmoji(e.c) + " " + e.c.charAt(0).toUpperCase() + e.c.slice(1) + "</span>";
-  content.innerHTML += "<h2 style=\"font-size:22px;margin:10px 0;color:#1a1a2e\">" + e.t + "</h2>";
-  content.innerHTML += "<div style=\"font-size:16px;color:#0f3460;font-weight:600;margin:5px 0\">📅 " + dateStr + "</div>";
-  content.innerHTML += "<div style=\"font-size:15px;color:#666;margin:5px 0\">📍 " + e.v + "</div>";
-  content.innerHTML += priceHtml;
-  content.innerHTML += "<div style=\"font-size:15px;color:#444;margin:15px 0;line-height:1.8\">" + t.d[e.di] + "</div>";
-  content.innerHTML += "<a href=\"" + e.l + "\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;padding:12px 30px;background:#0f3460;color:white;text-decoration:none;border-radius:8px;font-size:16px\">" + t.gT + "</a>";
-  overlay.style.display = "flex";
+function getCatEmoji(c) {
+  if (c === "concert") return "🎤";
+  if (c === "exhibition") return "🎨";
+  if (c === "festival") return "🏮";
+  if (c === "sports") return "🏃";
+  if (c === "family") return "👨‍👩‍👧";
+  return "📌";
+}
+
+function showModal(idx) {
+  var e = events[idx];
+  var desc = curLang === 0 ? e.d_en : (curLang === 1 ? e.d_tc : e.d_sc);
+  var dateStr = (curLang === 0 ? MONTHS[e.m] : (curLang === 1 ? MONTHS_TC[e.m] : MONTHS_SC[e.m])) + " " + e.s + (e.s !== e.e ? " - " + e.e : "");
+  var priceHtml = e.p ? "<p style='font-size:18px;color:#e74c3c;font-weight:600'>💰 " + e.p + "</p>" : "";
+  var getTickets = curLang === 0 ? "🎫 Get Tickets" : (curLang === 1 ? "🎫 購票" : "🎫 购票");
+  
+  var body = document.getElementById("modalBody");
+  body.innerHTML = "<img src='" + e.i + "' alt='" + e.t + "'>";
+  body.innerHTML += "<span class='event-cat cat-" + e.c + "'>" + getCatEmoji(e.c) + " " + e.c + "</span>";
+  body.innerHTML += "<h2>" + e.t + "</h2>";
+  body.innerHTML += "<p class='info'>📅 " + dateStr + "</p>";
+  body.innerHTML += "<p class='info'>📍 " + e.v + "</p>";
+  body.innerHTML += priceHtml;
+  body.innerHTML += "<p class='desc'>" + desc + "</p>";
+  body.innerHTML += "<a class='btn' href='" + e.l + "' target='_blank'>" + getTickets + "</a>";
+  
+  document.getElementById("modal").style.display = "flex";
 }
 
 function closeModal() {
-  document.getElementById('modal-overlay').style.display = "none";
+  document.getElementById("modal").style.display = "none";
 }
 
-// Event listeners using delegation
-document.getElementById('monthNav').addEventListener('click', function(e) {
-  var btn = e.target.closest ? e.target.closest('button') : null;
+// Event listeners
+document.getElementById("monthNav").addEventListener("click", function(ev) {
+  var btn = ev.target.closest("button");
   if (!btn) return;
-  var buttons = document.querySelectorAll('#monthNav button');
-  for (var i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
-  btn.classList.add('active');
-  curMonth = btn.getAttribute('data-month');
+  document.querySelectorAll("#monthNav button").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+  curMonth = parseInt(btn.getAttribute("data-m"));
   render();
 });
 
-document.getElementById('catFilters').addEventListener('click', function(e) {
-  var btn = e.target.closest ? e.target.closest('button') : null;
+document.getElementById("catFilters").addEventListener("click", function(ev) {
+  var btn = ev.target.closest("button");
   if (!btn) return;
-  var buttons = document.querySelectorAll('#catFilters button');
-  for (var i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
-  btn.classList.add('active');
-  curCat = btn.getAttribute('data-cat');
+  document.querySelectorAll("#catFilters button").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+  curCat = btn.getAttribute("data-c");
   render();
-});
-
-// Close modal on overlay click
-document.getElementById('modal-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
 });
 
 render();
+</script>
+</body>
+</html>
