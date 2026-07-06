@@ -215,14 +215,19 @@ function render() {
     </div>`).join('');
 }
 
-document.querySelectorAll('#monthNav button').forEach(b => b.addEventListener('click', () => {
+// Use event delegation to survive DOM replacement
+document.getElementById('monthNav').addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
   document.querySelectorAll('#monthNav button').forEach(x => x.classList.remove('active'));
-  b.classList.add('active'); curMonth = b.dataset.month; render();
-}));
-document.querySelectorAll('#catFilters button').forEach(b => b.addEventListener('click', () => {
+  btn.classList.add('active'); curMonth = btn.dataset.month; render();
+});
+document.getElementById('catFilters').addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
   document.querySelectorAll('#catFilters button').forEach(x => x.classList.remove('active'));
-  b.classList.add('active'); curCat = b.dataset.cat; render();
-}));
+  btn.classList.add('active'); curCat = btn.dataset.cat; render();
+});
 
 // ===== ROUTING =====
 function showPage(page) {
