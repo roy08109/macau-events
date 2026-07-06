@@ -215,19 +215,14 @@ function render() {
     </div>`).join('');
 }
 
-// Use event delegation to survive DOM replacement
-document.getElementById('monthNav').addEventListener('click', (e) => {
-  const btn = e.target.closest('button');
-  if (!btn) return;
+document.querySelectorAll('#monthNav button').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('#monthNav button').forEach(x => x.classList.remove('active'));
-  btn.classList.add('active'); curMonth = btn.dataset.month; render();
-});
-document.getElementById('catFilters').addEventListener('click', (e) => {
-  const btn = e.target.closest('button');
-  if (!btn) return;
+  b.classList.add('active'); curMonth = b.dataset.month; render();
+}));
+document.querySelectorAll('#catFilters button').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('#catFilters button').forEach(x => x.classList.remove('active'));
-  btn.classList.add('active'); curCat = btn.dataset.cat; render();
-});
+  b.classList.add('active'); curCat = b.dataset.cat; render();
+}));
 
 // ===== ROUTING =====
 function showPage(page) {
